@@ -1,0 +1,89 @@
+* {
+	margin : 0;
+	padding : 0;
+}
+
+#injectable {
+	display: none;
+}
+
+.printable {
+	display: none;
+}
+
+h3 .small {
+	font-size: 15px;
+}
+
+td, th {
+	padding: 5px 5px;
+}
+
+.badge {
+	font-size: 17px;
+}
+
+.qutton {
+	box-sizing : content-box !important;
+	background-repeat : no-repeat !important;
+	background-position: center center !important;
+	cursor : auto;
+	display: inline-block;
+}
+
+/*
+	Boostrap contiene una classe .close, che non interessa,
+	ma la classe .close serve ad identificare il tasto di
+	chiusura dei qutton. Percio' qui ne sovrascriviamo lo
+	stile rendendolo piu' "normale".
+	Forse si poteva rimuovere .close direttamente da Bootstrap,
+	ma almeno cosi' non ci si dimentica aggiornandolo
+*/
+.qutton .close {
+	color: #FFF;
+	float: none;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1;
+	opacity: 1;
+	text-shadow: 0;
+}
+
+.edit-dialog {
+	width: 300px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	background-color: #fff;
+	padding: 10px;
+	box-shadow: 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.edit-dialog h2 {
+	text-align: center;
+	font-weight: normal;
+	padding: 10px;
+	font-size: 1.2em;
+}
+
+.edit-dialog-lg {
+	width: 900px;
+}
+
+#dishes-roster .btn {
+	margin-bottom: 5px;
+}
+
+.dish-name {
+	margin-bottom: 5px;
+}
+
+#noprint {
+	margin-top: 10px;
+	display: none;
+}
+
+@media (max-width: 900px) {
+	.edit-dialog-lg {
+		width: 100%;
+	}
+}

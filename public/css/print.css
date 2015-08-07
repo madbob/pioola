@@ -1,0 +1,96 @@
+h1 {
+	width: 100%;
+	border-bottom: 2px solid #000;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+p {
+	margin: 10px;
+}
+
+ul {
+	position: relative;
+	margin: 0px 5px 20px;
+}
+
+li {
+	list-style: none;
+	font-size: 20px;
+}
+
+hr {
+	margin-bottom: 20px;
+}
+
+.printable {
+	display: block;
+}
+
+.col-md-12 {
+	width: 100%;
+}
+
+.col-md-6 {
+	float: left;
+	width: 45%;
+}
+
+.col-md-3 {
+	float: left;
+	width: 25%;
+}
+
+#order-list {
+	width: 100%;
+	margin-top: 20px;
+}
+
+.panel-heading {
+	clear: both;
+	width: 100%;
+}
+
+.dish-row {
+	clear: both;
+	width: 100%;
+}
+
+.dish-quantity {
+	position: absolute;
+	right: 100px;
+}
+
+.dish-price {
+	position: absolute;
+	right: 0px;
+}
+
+.dish-notes {
+	font-size: 12px;
+}
+
+#new-order {
+	width: 100%;
+}
+
+#total {
+	font-size: 20px;
+	display: block;
+	margin-top: 40px;
+	padding-top: 20px;
+	border-top: 2px solid #000;
+}
+
+#total .badge {
+	position: absolute;
+	right: 10px;
+}
+
+nav, .collection-header, .qutton, .remove-unit, #dishes-roster, #ops-options, #injectable {
+	display: none;
+}
+
+textarea {
+	display: none;
+}

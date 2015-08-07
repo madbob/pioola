@@ -31,7 +31,7 @@ cd pioola
 composer install
 php artisan key:generate
 cp .env.example .env
-(editare .env con i propri parametri di accesso al database, a S3 e all'SMTP)
+(editare .env con i propri parametri di accesso al database)
 php artisan migrate
 php artisan db:seed
 ```

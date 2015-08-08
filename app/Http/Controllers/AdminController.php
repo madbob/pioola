@@ -45,12 +45,13 @@ class AdminController extends Controller
 	public function getReports(Request $request)
 	{
 		if ($request->has('date'))
-			$d = $request->has('input');
+			$d = $request->input('date');
 		else
 			$d = date('Y-m-d');
 
 		$data['areas'] = Area::get();
 		$data['orders'] = Order::where(DB::raw('DATE(created_at)'), '=', $d)->get();
+		$data['dates'] = DB::table('orders')->select(DB::raw('DATE(created_at) as d'))->distinct()->orderBy('created_at', 'asc')->get();
 
 		return view('admin.reports', $data);
 	}

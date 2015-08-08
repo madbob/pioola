@@ -5,6 +5,16 @@
 <div class="container" id="admin-reports">
 	@include('admin.menu', ['active' => 'reports'])
 
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<div class="btn-group" role="group" aria-label="giorni">
+				@foreach($dates as $date)
+				<a class="btn btn-default" href="{{ url('admin/reports?date=' . $date->d) }}">{{ $date->d }}</a>
+				@endforeach
+			</div>
+		</div>
+	</div>
+
 	<?php
 
 	$data = [];

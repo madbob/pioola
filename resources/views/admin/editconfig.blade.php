@@ -33,7 +33,7 @@
 
 				<div class="form-group">
 					<div class="col-md-offset-3 col-md-9">
-						<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Salva Tutto</button>
+						<button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Salva Tutto</button>
 					</div>
 				</div>
 			</form>

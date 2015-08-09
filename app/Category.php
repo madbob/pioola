@@ -15,4 +15,9 @@ class Category extends Model
 	{
 		return $this->hasMany('App\Dish')->orderBy('sorted', 'asc');
 	}
+
+	public function allDishes()
+	{
+		return $this->hasMany('App\Dish')->withTrashed()->orderBy('sorted', 'asc');
+	}
 }

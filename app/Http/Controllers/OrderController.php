@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Dish;
 use App\Order;
 use App\OrderRow;
 
@@ -38,6 +39,12 @@ class OrderController extends Controller
 			$row->price = $dish->price;
 			$row->notes = $dish->notes;
 			$row->save();
+
+			$d = Dish::find($dish->id);
+			if ($d->quantity != -1) {
+				$d->quantity = max($d->quantity - $dish->quantity, 0);
+				$d->save();
+			}
 		}
 
 		echo $order->id;

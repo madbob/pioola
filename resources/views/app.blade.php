@@ -4,6 +4,7 @@
 		<title>Pioola</title>
 		<link rel="stylesheet" href="{{ url('css/bootstrap.css') }}" media="screen">
 		<link rel="stylesheet" href="{{ url('css/selectize.bootstrap3.css') }}" media="screen">
+		<link rel="stylesheet" href="{{ url('css/dataTables.bootstrap.css') }}" media="print">
 		<link rel="stylesheet" href="{{ url('css/style.css') }}" media="screen">
 		<link rel="stylesheet" href="{{ url('css/print.css') }}" media="print">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -35,6 +36,8 @@
 		<script type="text/javascript" src="{{ url('js/velocity-ui.js') }}"></script>
 		<script type="text/javascript" src="{{ url('js/quttons.js') }}"></script>
 		<script type="text/javascript" src="{{ url('js/selectize.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url('js/jquery.dataTables.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url('js/dataTables.bootstrap.js') }}"></script>
 		<script type="text/javascript" src="{{ url('js/pioola.js') }}"></script>
 	</body>
 </html>

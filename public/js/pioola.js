@@ -24,6 +24,10 @@ function refreshTotal() {
 }
 
 $(document).ready(function() {
+	$('.reloadpage').click(function() {
+		location.reload();
+	});
+
 	/******************************************************************************************************************************************
 		PANNELLO ORDINI
 	*/
@@ -133,6 +137,7 @@ $(document).ready(function() {
 					}
 					else if (typeof jsPrintSetup != "undefined") {
 						jsPrintSetup.clearSilentPrint();
+						jsPrintSetup.setOption('numCopies', $('input[name=print_copies]').val());
 						jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
 						jsPrintSetup.setOption('outputFormat', jsPrintSetup.kOutputFormatPDF);
 						jsPrintSetup.setOption('toFileName', '/tmp/mario.pdf');
@@ -156,10 +161,6 @@ $(document).ready(function() {
 					};
 				}
 			);
-		});
-
-		$('#new-order').click(function() {
-			location.reload();
 		});
 	}
 
@@ -280,6 +281,15 @@ $(document).ready(function() {
 			$(this).closest('tr').remove();
 		});
 
+		$('.movements table').DataTable({
+			info: false,
+			searching: false,
+			ordering:  false,
+			pageLength: 5,
+			lengthChange: false,
+			paging: true
+		});
+
 		$('#save-backstage').click(function() {
 			var backstage = {
 				rows: []
@@ -299,6 +309,15 @@ $(document).ready(function() {
 					location.reload();
 				}
 			);
+		});
+
+		/*
+			Questo e' per evitare che i click sui link per la paginazione della
+			tabella dei movimenti si propaghi al $(document), provocando la chiusura
+			del qutton (cfr. evento click_document nel prototipo della classe Qutton)
+		*/
+		$('.movements .dataTables_paginate').click(function(event) {
+			event.stopPropagation();
 		});
 
 		$('.save-movements').click(function() {

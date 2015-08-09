@@ -5,14 +5,23 @@
 <div class="container" id="admin-area">
 	@include('admin.menu', ['active' => 'areas'])
 
-	<div class="row">
+	<div class="row hidden-xs">
 		<div class="col-md-12">
 			<p>
-				I singoli elementi, quando rimossi, non vengono realmente eliminati ma solo nascosti al fine di preservare i dati raccolti nei giorni precedenti.
+				Se non viene indicata nessuna quantità a magazzino per una portata, si assume che il prodotto non deve essere automaticamente gestito e viene pertanto messo a quantità -1.
+			</p>
+			<p>
+				Le singole portate, quando rimosse, non vengono realmente eliminate ma solo nascoste al fine di preservare i dati raccolti nei giorni precedenti.
 				È possibile modificare il menù giorno per giorno conservando le informazioni storiche da cui poi generare i report.
+				Se viene eliminata una categoria, invece, tutti i dati sono cancellati.
+			</p>
+			<p>
+				Se viene eliminato qualcosa per errore, <a href="#" class="reloadpage">ricarica questa pagina</a> senza salvare.
 			</p>
 		</div>
 	</div>
+
+	<hr/>
 
 	<div class="row form-horizontal">
 		<div class="col-md-12">

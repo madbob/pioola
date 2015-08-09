@@ -90,10 +90,20 @@ class AreaController extends Controller
 				$dish->category_id = $category->id;
 				$dish->price = $d->price;
 
-				if (empty($d->addquantity) == false && $d->addquantity != 0)
-					$dish->quantity = $d->quantity + $d->addquantity;
-				else
-					$dish->quantity = $d->quantity;
+				/*
+					I prodotti percui non viene specificata una quantita'
+					sono messi a -1, in modo da poterli distingere da quelli
+					che una quantita' ce l'hanno (ed e' a 0)
+				*/
+				if (empty($d->quantity) == false) {
+					if (empty($d->addquantity) == false && $d->addquantity != 0)
+						$dish->quantity = $d->quantity + $d->addquantity;
+					else
+						$dish->quantity = $d->quantity;
+				}
+				else {
+					$dish->quantity = -1;
+				}
 
 				$dish->sorted = $sorting++;
 				$dish->save();

@@ -44,7 +44,9 @@
 				@foreach($area->categories as $cat)
 					<h5 class="hidden-xs">{{ $cat->name }}</h5>
 					@foreach($cat->dishes as $dish)
-						<a class="btn btn-default btn-lg dish" id="{{ $dish->id }}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ $dish->name }} ({{ $dish->price }} €)</a>
+						<a class="btn <?php if($dish->quantity == 0) echo 'btn-danger'; else if($dish->quantity <= 10 && $dish->quantity > 0) echo 'btn-warning'; else echo 'btn-default' ?> btn-lg dish" id="{{ $dish->id }}">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ $dish->name }} ({{ $dish->price }} €)
+						</a>
 					@endforeach
 				@endforeach
 			@endforeach
@@ -58,7 +60,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<a class="btn btn-primary btn-lg" id="print-order"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Salva e Stampa Ordine</a>
-				<a class="btn btn-default btn-lg pull-right" id="new-order"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Nuovo Ordine</a>
+				<a class="btn btn-default btn-lg pull-right reloadpage" id="new-order"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Nuovo Ordine</a>
 				<p class="alert alert-info" id="noprint">È fortemente consigliato usare Firefox e l'estensione JS Print Setup per una agevole stampa degli ordini. <a href="https://addons.mozilla.org/it/firefox/addon/js-print-setup/">Per installare l'estensione clicca qui.</a></p>
 			</div>
 		</div>

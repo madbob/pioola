@@ -47,6 +47,7 @@
 			<button class="btn btn-default add-category"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aggiungi Categoria</button>
 			<hr/>
 			<button class="btn btn-primary btn-lg" id="save-area"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Salva Tutto</button>
+			<button class="btn btn-default btn-lg hidden-xs" id="print-area"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Stampa Menu</button>
 		</div>
 	</div>
 </div>

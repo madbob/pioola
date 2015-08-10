@@ -23,6 +23,53 @@ function refreshTotal() {
 	$('#total .badge').text(tot.toFixed(2));
 }
 
+function saveArea(action) {
+	var id = $('input[name=area_id]').val();
+
+	var area = {
+		id: id,
+		name: $('input[name=area_name]').val(),
+		categories: []
+	};
+
+	$('#all-categories .category-block').each(function() {
+		var category = {
+			id: $(this).find('input[name=category_id]').val(),
+			name: $(this).find('input[name=category_name]').val(),
+			dishes: []
+		};
+
+		$(this).find('.dish-row').each(function() {
+			var dish = {
+				id: $(this).find('input[name=id]').val(),
+				name: $(this).find('input[name=name]').val(),
+				price: $(this).find('input[name=price]').val(),
+				quantity: $(this).find('input[name=quantity]').val(),
+				addquantity: $(this).find('input[name=addquantity]').val()
+			};
+
+			category.dishes.push(dish);
+		});
+
+		area.categories.push(category);
+	});
+
+	$.ajax({
+		url: '/area/' + id,
+		type: 'PATCH',
+		data: {
+			_token: $('meta[name=csrf-token]').attr('content'),
+			data: JSON.stringify(area)
+		},
+		success: function(data) {
+			if (action == 'save')
+				location.reload();
+			else if (action == 'print')
+				location.href = '/area/' + id + '/print';
+		}
+	});
+}
+
 $(document).ready(function() {
 	$('.reloadpage').click(function() {
 		location.reload();
@@ -208,48 +255,12 @@ $(document).ready(function() {
 			$(this).closest('.category-block').remove();
 		});
 
+		$('#print-area').click(function() {
+			saveArea('print');
+		});
+
 		$('#save-area').click(function() {
-			var id = $('input[name=area_id]').val();
-
-			var area = {
-				id: id,
-				name: $('input[name=area_name]').val(),
-				categories: []
-			};
-
-			$('#all-categories .category-block').each(function() {
-				var category = {
-					id: $(this).find('input[name=category_id]').val(),
-					name: $(this).find('input[name=category_name]').val(),
-					dishes: []
-				};
-
-				$(this).find('.dish-row').each(function() {
-					var dish = {
-						id: $(this).find('input[name=id]').val(),
-						name: $(this).find('input[name=name]').val(),
-						price: $(this).find('input[name=price]').val(),
-						quantity: $(this).find('input[name=quantity]').val(),
-						addquantity: $(this).find('input[name=addquantity]').val()
-					};
-
-					category.dishes.push(dish);
-				});
-
-				area.categories.push(category);
-			});
-
-			$.ajax({
-				url: '/area/' + id,
-				type: 'PATCH',
-				data: {
-					_token: $('meta[name=csrf-token]').attr('content'),
-					data: JSON.stringify(area)
-				},
-				success: function(data) {
-					location.reload();
-				}
-			});
+			saveArea('save');
 		});
 	}
 

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row dontprint" role="navigation">
 	<div class="col-md-12 center-align">
 		<ul class="nav nav-tabs">
 			<li role="presentation"<?php if($active == 'areas') echo ' class="active"' ?>><a href="{{ url('admin/area') }}">Gestione Aree e Menù</a></li>

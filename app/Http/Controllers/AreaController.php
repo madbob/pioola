@@ -124,4 +124,14 @@ class AreaController extends Controller
 	public function destroy($id)
 	{
 	}
+
+	public function printer($id)
+	{
+		$areas = Area::where('trasversal', '=', true)->get();
+		$a = Area::findOrFail($id);
+		$areas->prepend($a);
+
+		$data['areas'] = $areas;
+		return view('admin.printarea', $data);
+	}
 }

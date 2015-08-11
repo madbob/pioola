@@ -292,7 +292,7 @@ $(document).ready(function() {
 		$('.add-bsrow').click(function() {
 			var row = $('#injectable #new-bs-row').clone();
 			row.removeAttr('id');
-			$('#all-backstage').append(row);
+			$('#all-backstage tbody').append(row);
 			return false;
 		});
 
@@ -349,6 +349,48 @@ $(document).ready(function() {
 					quantity: row.find('input[name=quantity]').val()
 				},
 				function(data) {
+					location.reload();
+				}
+			);
+		});
+	}
+
+	/******************************************************************************************************************************************
+		AMMINISTRAZIONE UTENTI
+	*/
+	if ($('#admin-users').length != 0) {
+		$('.add-userrow').click(function() {
+			var row = $('#injectable #new-user-row').clone();
+			row.removeAttr('id');
+			var animals = ['cane', 'gatto', 'leone', 'scoiattolo', 'passero', 'elefante', 'tacchino', 'serpente', 'pinguino', 'bue'];
+			var colors = ['rosso', 'verde', 'blu', 'bianco', 'nero', 'grigio', 'giallo', 'viola', 'marrone', 'arancione'];
+			var password = animals[Math.floor(Math.random() * animals.length)] + ' ' + colors[Math.floor(Math.random() * colors.length)];
+			row.find('input[name=password]').val(password);
+			$('#all-users tbody').append(row);
+			return false;
+		});
+
+		$('#admin-users').on('click', '.remove-userrow', function() {
+			$(this).closest('tr').remove();
+		});
+
+		$('#save-users').click(function() {
+			var users = {
+				rows: []
+			};
+
+			$('#all-users .user-row').each(function() {
+				var user = {
+					id: $(this).find('input[name=id]').val(),
+					name: $(this).find('input[name=name]').val(),
+					password: $(this).find('input[name=password]').val(),
+					admin: $(this).find('input[name=admin]').is(':checked')
+				};
+
+				users.rows.push(user);
+			});
+
+			tokenpost('/users/save', { data: JSON.stringify(users) }, function(data) {
 					location.reload();
 				}
 			);

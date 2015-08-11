@@ -12,5 +12,6 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'admin' => 'AdminController',
 	'backstage' => 'BackstageController',
-	'config' => 'ConfigController'
+	'config' => 'ConfigController',
+	'users' => 'UsersController'
 ]);

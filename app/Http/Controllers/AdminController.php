@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
+use Auth;
 use Redirect;
 use DB;
 
+use App\User;
 use App\Area;
 use App\Category;
 use App\Dish;
@@ -22,6 +25,8 @@ class AdminController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
+		if (Auth::user()->is('admin') == false)
+			abort(503);
 	}
 
 	public function getIndex()
@@ -54,6 +59,12 @@ class AdminController extends Controller
 		$data['dates'] = DB::table('orders')->select(DB::raw('DATE(created_at) as d'))->distinct()->orderBy('created_at', 'asc')->get();
 
 		return view('admin.reports', $data);
+	}
+
+	public function getUsers()
+	{
+		$data['users'] = User::get();
+		return view('admin.editusers', $data);
 	}
 
 	public function getConfig()

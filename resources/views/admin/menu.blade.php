@@ -4,6 +4,7 @@
 			<li role="presentation"<?php if($active == 'areas') echo ' class="active"' ?>><a href="{{ url('admin/area') }}">Gestione Aree e Menù</a></li>
 			<li role="presentation"<?php if($active == 'backstage') echo ' class="active"' ?>><a href="{{ url('admin/backstage') }}">Retrobottega</a></li>
 			<li role="presentation"<?php if($active == 'reports') echo ' class="active"' ?>><a href="{{ url('admin/reports') }}">Rapporti</a></li>
+			<li role="presentation"<?php if($active == 'users') echo ' class="active"' ?>><a href="{{ url('admin/users') }}">Utenti</a></li>
 			<li role="presentation"<?php if($active == 'config') echo ' class="active"' ?>><a href="{{ url('admin/config') }}">Configurazioni</a></li>
 		</ul>
 	</div>

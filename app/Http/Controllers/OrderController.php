@@ -18,14 +18,6 @@ class OrderController extends Controller
 		$this->middleware('auth');
 	}
 
-	public function index()
-	{
-	}
-
-	public function create()
-	{
-	}
-
 	public function store(Request $request)
 	{
 		$data = $request->input('order');
@@ -53,25 +45,5 @@ class OrderController extends Controller
 		}
 
 		echo $order->id;
-	}
-
-	public function show($id)
-	{
-	//
-	}
-
-	public function edit($id)
-	{
-	//
-	}
-
-	public function update(Request $request, $id)
-	{
-	//
-	}
-
-	public function destroy($id)
-	{
-	//
 	}
 }

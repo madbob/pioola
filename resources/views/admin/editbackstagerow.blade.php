@@ -71,7 +71,7 @@
 		@endif
 	</td>
 
-	<td>
+	<td class="text-right">
 		<a class="btn btn-danger remove-bsrow"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </a>
 	</td>
 </tr>

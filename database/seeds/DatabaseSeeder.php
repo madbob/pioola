@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use Bican\Roles\Models\Role;
+
 use App\User;
 use App\Area;
 use App\Config;
@@ -21,10 +23,18 @@ class DatabaseSeeder extends Seeder
 		DB::table('categories')->delete();
 		DB::table('order_rows')->delete();
 
-		User::create([
+		$adminRole = Role::create([
+			'name' => 'Admin',
+			'slug' => 'admin',
+			'description' => '',
+		]);
+
+		$admin = User::create([
 			'name' => 'Amministratore',
 			'password' => Hash::make('cippalippa')
 		]);
+
+		$admin->attachRole($adminRole);
 
 		Area::create([
 			'name' => 'Comune',

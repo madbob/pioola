@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 use App\Backstage;
 use App\Person;
 use App\Movement;
@@ -16,6 +18,8 @@ class BackstageController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
+		if (Auth::user()->is('admin') == false)
+			abort(503);
 	}
 
 	public function postSave(Request $request)

@@ -25,6 +25,7 @@
 		@endforeach
 	</div>
 
+	@role('admin')
 	<hr/>
 
 	<div class="row">
@@ -36,6 +37,7 @@
 			</div>
 		</div>
 	</div>
+	@endrole
 </div>
 
 @endsection

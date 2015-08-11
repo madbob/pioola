@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 use App\Area;
 use App\Category;
 use App\Dish;
@@ -26,12 +28,11 @@ class AreaController extends Controller
 		return view('welcome', $data);
 	}
 
-	public function create()
-	{
-	}
-
 	public function store(Request $request)
 	{
+		if (Auth::user()->is('admin') == false)
+			abort(503);
+
 		$area = new Area();
 		$area->name = $request->input('name');
 		$area->save();
@@ -51,12 +52,18 @@ class AreaController extends Controller
 
 	public function edit($id)
 	{
+		if (Auth::user()->is('admin') == false)
+			abort(503);
+
 		$data['area'] = Area::findOrFail($id);
 		return view('admin.editarea', $data);
 	}
 
 	public function update(Request $request, $id)
 	{
+		if (Auth::user()->is('admin') == false)
+			abort(503);
+
 		$data = $request->input('data');
 		$data = json_decode($data);
 
@@ -126,10 +133,15 @@ class AreaController extends Controller
 
 	public function destroy($id)
 	{
+		if (Auth::user()->is('admin') == false)
+			abort(503);
 	}
 
 	public function printer($id)
 	{
+		if (Auth::user()->is('admin') == false)
+			abort(503);
+
 		$areas = Area::where('trasversal', '=', true)->get();
 		$a = Area::findOrFail($id);
 		$areas->prepend($a);

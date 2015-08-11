@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 use App\Category;
 
 class CategoryController extends Controller
@@ -14,14 +16,8 @@ class CategoryController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
-	}
-
-	public function index()
-	{
-	}
-
-	public function create()
-	{
+		if (Auth::user()->is('admin') == false)
+			abort(503);
 	}
 
 	public function store(Request $request)
@@ -33,19 +29,4 @@ class CategoryController extends Controller
 		return redirect()->back();
 	}
 
-	public function show($id)
-	{
-	}
-
-	public function edit($id)
-	{
-	}
-
-	public function update(Request $request, $id)
-	{
-	}
-
-	public function destroy($id)
-	{
-	}
 }

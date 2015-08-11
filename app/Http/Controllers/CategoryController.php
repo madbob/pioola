@@ -11,6 +11,11 @@ use App\Category;
 
 class CategoryController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
 	public function index()
 	{
 	}
@@ -21,7 +26,6 @@ class CategoryController extends Controller
 
 	public function store(Request $request)
 	{
-		$this->middleware('auth');
 		$area = new Category();
 		$area->name = $request->input('name');
 		$area->area_id = $request->input('area_id');

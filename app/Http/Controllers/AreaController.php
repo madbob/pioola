@@ -14,6 +14,11 @@ use App\Config;
 
 class AreaController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
 	public function index()
 	{
 		$data['areas'] = Area::orderBy('name', 'asc')->get();
@@ -27,7 +32,6 @@ class AreaController extends Controller
 
 	public function store(Request $request)
 	{
-		$this->middleware('auth');
 		$area = new Area();
 		$area->name = $request->input('name');
 		$area->save();
@@ -47,15 +51,12 @@ class AreaController extends Controller
 
 	public function edit($id)
 	{
-		$this->middleware('auth');
 		$data['area'] = Area::findOrFail($id);
 		return view('admin.editarea', $data);
 	}
 
 	public function update(Request $request, $id)
 	{
-		$this->middleware('auth');
-
 		$data = $request->input('data');
 		$data = json_decode($data);
 

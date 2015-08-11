@@ -13,10 +13,13 @@ use App\Movement;
 
 class BackstageController extends Controller
 {
-	public function postSave(Request $request)
+	public function __construct()
 	{
 		$this->middleware('auth');
+	}
 
+	public function postSave(Request $request)
+	{
 		$data = $request->input('data');
 		$data = json_decode($data);
 

@@ -18,6 +18,7 @@
 					<li><a href="{{ url('/') }}">Home</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right hidden-xs">
+					<li><a href="{{ url('auth/logout') }}">Logout</a></li>
 					<li><a href="{{ url('help') }}">Aiuto</a></li>
 				</ul>
 			</div>

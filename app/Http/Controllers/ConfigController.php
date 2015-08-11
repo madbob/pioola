@@ -12,10 +12,13 @@ use App\Config;
 
 class ConfigController extends Controller
 {
-	public function postSave(Request $request)
+	public function __construct()
 	{
 		$this->middleware('auth');
+	}
 
+	public function postSave(Request $request)
+	{
 		$configs = Config::get();
 
 		foreach($configs as $c) {

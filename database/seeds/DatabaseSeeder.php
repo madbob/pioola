@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
 
 		User::create([
 			'name' => 'Amministratore',
-			'email' => 'admin@pioola.it',
 			'password' => Hash::make('cippalippa')
 		]);
 

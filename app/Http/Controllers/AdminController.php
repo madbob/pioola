@@ -55,7 +55,7 @@ class AdminController extends Controller
 			$d = date('Y-m-d');
 
 		$data['areas'] = Area::get();
-		$data['orders'] = Order::where(DB::raw('DATE(created_at)'), '=', $d)->get();
+		$data['orders'] = Order::where(DB::raw('DATE(created_at)'), '=', $d)->orderBy('created_at', 'asc')->get();
 		$data['dates'] = DB::table('orders')->select(DB::raw('DATE(created_at) as d'))->distinct()->orderBy('created_at', 'asc')->get();
 
 		return view('admin.reports', $data);

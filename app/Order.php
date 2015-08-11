@@ -10,4 +10,9 @@ class Order extends Model
 	{
 		return $this->hasMany('App\OrderRow');
 	}
+
+	public function user()
+	{
+		return $this->hasMany('App\User');
+	}
 }

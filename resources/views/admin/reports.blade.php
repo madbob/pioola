@@ -18,15 +18,22 @@
 	<?php
 
 	$data = [];
+	$donated = [];
 
 	foreach($areas as $area) {
 		if ($area->trasversal == true)
 			continue;
 
 		$data[$area->id] = [];
+		$donated[$area->id] = 0;
 	}
 
 	foreach($orders as $order) {
+		if (empty($order->donated) == false) {
+			$donated[$order->area_id] = $donated[$order->area_id] + 1;
+			continue;
+		}
+
 		foreach($order->details as $row) {
 			if (isset($data[$order->area_id][$row->dish_id]) == false)
 				$data[$order->area_id][$row->dish_id] = (object) array('quantity' => 0, 'price' => 0);
@@ -87,6 +94,10 @@
 					@endforeach
 				@endif
 				@endforeach
+
+				<div class="panel-heading">
+					<h3 class="panel-title">Menu Omaggio <span class="badge pull-right">{{ $donated[$area->id] }}</span></h3>
+				</div>
 
 				<div class="panel-footer">
 					<h3 class="panel-title">Totale <span class="badge pull-right">{{ sprintf('%.02f', $total) }} €</span></h3>

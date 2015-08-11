@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 use App\Dish;
 use App\Order;
 use App\OrderRow;
@@ -25,7 +27,9 @@ class OrderController extends Controller
 
 		$order = new Order();
 		$order->area_id = $data->area;
+		$order->user_id = Auth::user()->id;
 		$order->notes = $data->notes;
+		$order->donated = $data->donated;
 		$order->save();
 
 		foreach($data->dishes as $dish) {

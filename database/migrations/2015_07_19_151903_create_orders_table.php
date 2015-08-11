@@ -10,6 +10,8 @@ class CreateOrdersTable extends Migration
 		Schema::create('orders', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('area_id');
+			$table->integer('user_id');
+			$table->string('donated');
 			$table->text('notes');
 			$table->timestamps();
 		});

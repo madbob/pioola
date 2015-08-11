@@ -36,6 +36,18 @@
 
 			<textarea class="form-control hidden-xs" name="order-notes" placeholder="Note generali per l'ordine"></textarea>
 			<div class="printable" id="static-notes"></div>
+
+			<div class="donation">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="donated-check" autocomplete="off"> Menu Omaggio
+					</label>
+				</div>
+
+				<div class="form-group">
+					<textarea class="form-control hidden-xs" name="donated" placeholder="Commento obbligatorio al menu omaggio"></textarea>
+				</div>
+			</div>
 		</div>
 
 		<div class="col-md-6" id="dishes-roster">

@@ -159,17 +159,35 @@ $(document).ready(function() {
 			}
 		});
 
+		$('.donation input[name=donated-check]').change(function() {
+			$('.donation textarea').toggle($(this).is(':checked'));
+		});
+
 		$('#print-order').click(function() {
+			var free = false;
+			var donation_reason = '';
+
+			if ($('.donation input[name=donated-check]').is(':checked')) {
+				donation_reason = $('.donation textarea').val();
+				if (donation_reason == '') {
+					$('.donation .form-group').addClass('has-error');
+					return false;
+				}
+
+				free = true;
+			}
+
 			var order = {
 				area: $('input[name=area-id]').val(),
 				notes: $('textarea[name=order-notes]').val(),
+				donated: donation_reason,
 				dishes: []
 			};
 
 			$('#order-list .dish-row').each(function() {
 				var id = $(this).find('input[name=dish-id-edit]').val();
 				var quantity = $(this).find('input[name=dish-quantity-edit]').val();
-				var price = $(this).find('input[name=dish-price-edit]').val();
+				var price = free ? 0 : $(this).find('input[name=dish-price-edit]').val();
 				var notes = $(this).find('input[name=dish-notes-edit]').val();
 				order.dishes.push({'id': id, 'quantity': quantity, 'price': price, 'notes': notes});
 			});

@@ -77,6 +77,14 @@ td, th {
 	margin-bottom: 5px;
 }
 
+.donation {
+	margin-top: 20px;
+}
+
+.donation textarea {
+	display: none;
+}
+
 #noprint {
 	margin-top: 10px;
 	display: none;

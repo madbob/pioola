@@ -17,7 +17,7 @@ class Area extends Model
 		$names = [];
 
 		foreach($this->categories as $cat) {
-			$dishes = $cat->dishes;
+			$dishes = $cat->availableDishes;
 			foreach($dishes as $dish)
 				$names[] = $dish->name;
 		}

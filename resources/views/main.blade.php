@@ -3,7 +3,6 @@
 @section('content')
 
 <input type="hidden" name="area-id" value="{{ $areas->first()->id }}">
-<input type="hidden" name="print_copies" value="{{ $config['print_copies'] }}">
 
 <div class="container" id="add-order">
 	<div class="row printable">
@@ -43,7 +42,7 @@
 			@foreach($areas as $area)
 				@foreach($area->categories as $cat)
 					<h5 class="hidden-xs">{{ $cat->name }}</h5>
-					@foreach($cat->dishes as $dish)
+					@foreach($cat->availableDishes as $dish)
 						<a class="btn <?php if($dish->quantity == 0) echo 'btn-danger'; else if($dish->quantity <= 10 && $dish->quantity > 0) echo 'btn-warning'; else echo 'btn-default' ?> btn-lg dish" id="{{ $dish->id }}">
 							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ $dish->name }} ({{ $dish->price }} €)
 						</a>
@@ -119,7 +118,7 @@
 	var menu = {
 		@foreach($areas as $area)
 			@foreach($area->categories as $cat)
-				@foreach($cat->dishes as $dish)
+				@foreach($cat->availableDishes as $dish)
 					"{{ $dish->id }}": {
 						"id": {{ $dish->id }},
 						"name": "{{ $dish->name }}",

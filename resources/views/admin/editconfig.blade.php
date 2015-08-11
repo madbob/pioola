@@ -18,9 +18,16 @@
 				</div>
 
 				<div class="form-group">
-					<label class="control-label col-md-3">Pagine da Stampare</label>
+					<label class="control-label col-md-3">Testo Personalizzato Homepage</label>
 					<div class="col-md-9">
-						<input type="text" class="form-control" name="print_copies" value="{{ $config['print_copies'] }}">
+						<input type="text" class="form-control" name="intro_text" value="{{ $config['intro_text'] }}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3">Testo Personalizzato Stampe</label>
+					<div class="col-md-9">
+						<input type="text" class="form-control" name="print_footer_text" value="{{ $config['print_footer_text'] }}">
 					</div>
 				</div>
 

@@ -38,8 +38,13 @@ class DatabaseSeeder extends Seeder
 		]);
 
 		Config::create([
-			'name' => 'print_copies',
-			'value' => '2'
+			'name' => 'intro_text',
+			'value' => ''
+		]);
+
+		Config::create([
+			'name' => 'print_footer_text',
+			'value' => ''
 		]);
 
 		Model::reguard();

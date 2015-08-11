@@ -17,6 +17,7 @@ class AreaController extends Controller
 	public function index()
 	{
 		$data['areas'] = Area::orderBy('name', 'asc')->get();
+		$data['config'] = Config::build();
 		return view('welcome', $data);
 	}
 
@@ -89,6 +90,7 @@ class AreaController extends Controller
 				$dish->name = $d->name;
 				$dish->category_id = $category->id;
 				$dish->price = $d->price;
+				$dish->disabled = !$d->available;
 
 				/*
 					I prodotti percui non viene specificata una quantita'

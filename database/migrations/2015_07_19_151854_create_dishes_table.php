@@ -14,8 +14,8 @@ class CreateDishesTable extends Migration
 			$table->decimal('price', 5, 2);
 			$table->integer('quantity');
 			$table->integer('sorted');
+			$table->boolean('disabled');
 			$table->timestamps();
-			$table->softDeletes();
 		});
 	}
 

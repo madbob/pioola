@@ -17,7 +17,7 @@
 					<th>Prezzo</th>
 					<th>Quantità</th>
 					<th>Aggiungi a Magazzino</th>
-					<th>Elimina</th>
+					<th>Disponibile / Elimina</th>
 				</tr>
 			</thead>
 			<tbody>

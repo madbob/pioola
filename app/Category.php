@@ -16,8 +16,8 @@ class Category extends Model
 		return $this->hasMany('App\Dish')->orderBy('sorted', 'asc');
 	}
 
-	public function allDishes()
+	public function availableDishes()
 	{
-		return $this->hasMany('App\Dish')->withTrashed()->orderBy('sorted', 'asc');
+		return $this->hasMany('App\Dish')->where('disabled', '=', false)->orderBy('sorted', 'asc');
 	}
 }

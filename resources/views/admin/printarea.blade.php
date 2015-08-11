@@ -16,7 +16,7 @@
 					@foreach($area->categories as $cat)
 						<div class="panel-heading hidden-xs">{{ $cat->name }}</div>
 						<ul class="list-group">
-							@foreach($cat->dishes as $dish)
+							@foreach($cat->availableDishes as $dish)
 								<li class="list-group-item dish-row">
 									<div class="row">
 										<div class="col-md-9">

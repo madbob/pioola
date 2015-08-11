@@ -45,6 +45,7 @@ function saveArea(action) {
 				name: $(this).find('input[name=name]').val(),
 				price: $(this).find('input[name=price]').val(),
 				quantity: $(this).find('input[name=quantity]').val(),
+				available: $(this).find('.toggle-available').find('.glyphicon').hasClass('glyphicon-ok'),
 				addquantity: $(this).find('input[name=addquantity]').val()
 			};
 
@@ -184,7 +185,6 @@ $(document).ready(function() {
 					}
 					else if (typeof jsPrintSetup != "undefined") {
 						jsPrintSetup.clearSilentPrint();
-						jsPrintSetup.setOption('numCopies', $('input[name=print_copies]').val());
 						jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
 						jsPrintSetup.setOption('outputFormat', jsPrintSetup.kOutputFormatPDF);
 						jsPrintSetup.setOption('toFileName', '/tmp/mario.pdf');
@@ -239,6 +239,14 @@ $(document).ready(function() {
 
 		$('#admin-area').on('click', '.remove-dish', function() {
 			$(this).closest('tr').remove();
+		});
+
+		$('#admin-area').on('click', '.toggle-available', function() {
+			var icon = $(this).find('.glyphicon');
+			if (icon.hasClass('glyphicon-ok'))
+				icon.removeClass('glyphicon-ok').addClass('glyphicon-remove');
+			else
+				icon.removeClass('glyphicon-remove').addClass('glyphicon-ok');
 		});
 
 		$('.add-category').click(function() {

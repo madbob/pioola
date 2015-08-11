@@ -11,9 +11,8 @@
 				Se non viene indicata nessuna quantità a magazzino per una portata, si assume che il prodotto non deve essere automaticamente gestito e viene pertanto messo a quantità -1.
 			</p>
 			<p>
-				Le singole portate, quando rimosse, non vengono realmente eliminate ma solo nascoste al fine di preservare i dati raccolti nei giorni precedenti.
-				È possibile modificare il menù giorno per giorno conservando le informazioni storiche da cui poi generare i report.
-				Se viene eliminata una categoria, invece, tutti i dati sono cancellati.
+				Le singole portate, quando eliminate, vengono completamente rimosse insieme al loro storico.
+				Per nascondere temporaneamente una portata dal menu, e preservarne comunque tutti i dati correlati, usare l'opzione "disabilita".
 			</p>
 			<p>
 				Se viene eliminato qualcosa per errore, <a href="#" class="reloadpage">ricarica questa pagina</a> senza salvare.

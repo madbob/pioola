@@ -53,7 +53,7 @@
 					<h3 class="panel-title">{{ $cat->name }}</h3>
 				</div>
 				<ul class="list-group">
-					@foreach($cat->allDishes as $dish)
+					@foreach($cat->dishes as $dish)
 						<li class="list-group-item">
 							{{ $dish->name }}
 							@if(isset($data[$area->id][$dish->id]))

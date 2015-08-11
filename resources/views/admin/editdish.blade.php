@@ -23,7 +23,8 @@
 		@endif
 	</td>
 
-	<td>
+	<td class="text-right">
+		<a class="btn btn-warning toggle-available"><span class="glyphicon <?php if($dish == null || $dish->disabled == false) echo 'glyphicon-ok'; else echo 'glyphicon-remove' ?>" aria-hidden="true"></span> </a>
 		<a class="btn btn-danger remove-dish"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </a>
 	</td>
 </tr>

@@ -3,6 +3,14 @@
 @section('content')
 
 <div class="container">
+	@if(empty($config['intro_text']) == false)
+	<div class="row">
+		<div class="alert alert-info">
+			{{ $config['intro_text'] }}
+		</div>
+	</div>
+	@endif
+
 	<div class="row">
 		@foreach($areas as $area)
 		@if($area->trasversal == false)

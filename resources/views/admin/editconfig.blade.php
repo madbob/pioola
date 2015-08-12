@@ -11,23 +11,21 @@
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 				<div class="form-group">
-					<label class="control-label col-md-3">Intestazione Ordini</label>
-					<div class="col-md-9">
-						<input type="text" class="form-control" name="head_documents" value="{{ $config['head_documents'] }}">
-					</div>
-				</div>
-
-				<div class="form-group">
 					<label class="control-label col-md-3">Testo Personalizzato Homepage</label>
 					<div class="col-md-9">
 						<input type="text" class="form-control" name="intro_text" value="{{ $config['intro_text'] }}">
+						<p class="help-block">Questo testo apparirà in alto nella homepage, utili per segnalazioni generali allo staff.</p>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="control-label col-md-3">Testo Personalizzato Stampe</label>
+					<label class="control-label col-md-3">Tema Stampe</label>
 					<div class="col-md-9">
-						<input type="text" class="form-control" name="print_footer_text" value="{{ $config['print_footer_text'] }}">
+						<select name="print_theme" class="form-control">
+							@foreach($config['print_themes'] as $theme)
+							<option value="{{ $theme }}"<?php if($config['print_theme'] == $theme) echo ' selected="selected"' ?>>{{ $theme }}</option>
+							@endforeach
+						</select>
 					</div>
 				</div>
 

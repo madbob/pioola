@@ -42,18 +42,13 @@ class DatabaseSeeder extends Seeder
 		]);
 
 		Config::create([
-			'name' => 'head_documents',
-			'value' => ''
-		]);
-
-		Config::create([
 			'name' => 'intro_text',
 			'value' => ''
 		]);
 
 		Config::create([
-			'name' => 'print_footer_text',
-			'value' => ''
+			'name' => 'print_theme',
+			'value' => 'default'
 		]);
 
 		Model::reguard();

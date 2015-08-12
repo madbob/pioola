@@ -14,6 +14,9 @@ class Config extends Model
 		foreach($configs as $c)
 			$ret[$c->name] = $c->value;
 
+		$themes = array_diff(scandir(public_path() . '/printing'), ['..', '.']);
+		$ret['print_themes'] = $themes;
+
 		return $ret;
 	}
 }

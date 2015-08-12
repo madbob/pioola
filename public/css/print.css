@@ -92,7 +92,7 @@ hr {
 	right: 10px;
 }
 
-nav, .collection-header, .qutton, .remove-unit, #dishes-roster, #ops-options, #injectable {
+nav, .collection-header, .qutton, .remove-unit, .noprint, #dishes-roster, #ops-options, #injectable {
 	display: none;
 }
 

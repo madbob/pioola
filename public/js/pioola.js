@@ -193,37 +193,7 @@ $(document).ready(function() {
 			});
 
 			tokenpost('/order', { 'order': JSON.stringify(order) }, function(data) {
-					$('#ordernumber').text(data);
-					var d = new Date();
-					$('#orderdate').text(d.toLocaleDateString());
-					$('#static-notes').text($('textarea[name=order-notes]').val());
-
-					if (typeof jsPrintSetup == "undefined" && $(window).width() > 900) {
-						window.print();
-					}
-					else if (typeof jsPrintSetup != "undefined") {
-						jsPrintSetup.clearSilentPrint();
-						jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
-						jsPrintSetup.setOption('outputFormat', jsPrintSetup.kOutputFormatPDF);
-						jsPrintSetup.setOption('toFileName', '/tmp/mario.pdf');
-						jsPrintSetup.setSilentPrint(true);
-						jsPrintSetup.print();
-					}
-					else {
-						$('#new-order').click();
-						return;
-					}
-
-					/*
-						Invocare subito il click() su #new-order non funziona, perche' la
-						stampa e' in corso. In questo caso si assume che la finestra sara'
-						temporaneamente oscurata dalla finestra di print progress,
-						pertanto si attiva un trigger per quando la finestra avra'
-						nuovamente il focus
-					*/
-					window.onfocus = function() {
-						$('#new-order').click();
-					};
+					location.href = data;
 				}
 			);
 		});

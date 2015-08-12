@@ -14,6 +14,7 @@ use App\Area;
 use App\Dish;
 use App\Order;
 use App\OrderRow;
+use App\Config;
 
 class OrderController extends Controller
 {
@@ -60,6 +61,26 @@ class OrderController extends Controller
 			}
 		}
 
-		echo $order->number;
+		echo url('order/' . $order->id . '?step=1');
+	}
+
+	public function show(Request $request, $id)
+	{
+		$order = Order::findOrFail($id);
+		$config = Config::build();
+
+		switch($request->input('step')) {
+			case 1:
+				return view('printable', ['order' => $order, 'page' => $config['print_theme'] . '.cucina', 'nextstep' => 2]);
+				break;
+
+			case 2:
+				return view('printable', ['order' => $order, 'page' => $config['print_theme'] . '.tavolo', 'nextstep' => 3]);
+				break;
+
+			case 3:
+				return redirect(url('area/' . $order->area_id));
+				break;
+		}
 	}
 }

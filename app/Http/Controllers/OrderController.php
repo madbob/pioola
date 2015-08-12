@@ -8,7 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
+use DB;
 
+use App\Area;
 use App\Dish;
 use App\Order;
 use App\OrderRow;
@@ -25,8 +27,14 @@ class OrderController extends Controller
 		$data = $request->input('order');
 		$data = json_decode($data);
 
+		$area = Area::find($data->area);
+		$index = $area->current_index;
+		$area->current_index = $area->current_index + 1;
+		$area->save();
+
 		$order = new Order();
 		$order->area_id = $data->area;
+		$order->number = $index;
 		$order->user_id = Auth::user()->id;
 		$order->notes = $data->notes;
 		$order->donated = $data->donated;
@@ -42,12 +50,16 @@ class OrderController extends Controller
 			$row->save();
 
 			$d = Dish::find($dish->id);
+			/*
+				Le portate con quantità == -1 non hanno le quantità gestite a
+				magazzino, dunque ignoro la relativa manipolazione
+			*/
 			if ($d->quantity != -1) {
 				$d->quantity = max($d->quantity - $dish->quantity, 0);
 				$d->save();
 			}
 		}
 
-		echo $order->id;
+		echo $order->number;
 	}
 }

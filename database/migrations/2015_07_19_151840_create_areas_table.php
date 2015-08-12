@@ -10,6 +10,7 @@ class CreateAreasTable extends Migration
 		Schema::create('areas', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
+			$table->integer('current_index');
 			$table->boolean('trasversal');
 			$table->timestamps();
 		});

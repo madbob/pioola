@@ -23,6 +23,10 @@ td, th {
 	font-size: 17px;
 }
 
+.well .page-header {
+	margin-top: 0;
+}
+
 .qutton {
 	box-sizing : content-box !important;
 	background-repeat : no-repeat !important;

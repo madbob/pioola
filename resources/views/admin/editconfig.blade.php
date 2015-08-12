@@ -32,13 +32,6 @@
 				</div>
 
 				<div class="form-group">
-					<label class="control-label col-md-3">Password Amministrazione</label>
-					<div class="col-md-9">
-						<input type="password" class="form-control" name="password" placeholder="Lascia in bianco per non modificare la password esistente">
-					</div>
-				</div>
-
-				<div class="form-group">
 					<div class="col-md-offset-3 col-md-9">
 						<button type="submit" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Salva Tutto</button>
 					</div>

@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use DB;
 use Auth;
 
 use App\Area;
+use App\Order;
 use App\Category;
 use App\Dish;
 use App\Config;
@@ -35,6 +37,8 @@ class AreaController extends Controller
 
 		$area = new Area();
 		$area->name = $request->input('name');
+		$area->current_index = 1;
+		$area->trasversal = false;
 		$area->save();
 		return redirect()->back();
 	}
@@ -43,6 +47,19 @@ class AreaController extends Controller
 	{
 		$areas = Area::where('trasversal', '=', true)->get();
 		$a = Area::findOrFail($id);
+
+		/*
+			Questo è per resettare il contatore di ordini interno all'area ogni giorno.
+			Non sapendo dove piazzarlo, lo metto qui.
+		*/
+		if ($a->current_index != 1) {
+			$orders_count = Order::where('area_id', '=', $a->id)->where(DB::raw('DATE(created_at)'), '=', date('Y-m-d'))->count();
+			if ($orders_count == 0) {
+				$a->current_index = 1;
+				$a->save();
+			}
+		}
+
 		$areas->prepend($a);
 
 		$data['config'] = Config::build();

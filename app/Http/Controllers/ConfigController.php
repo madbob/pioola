@@ -32,12 +32,6 @@ class ConfigController extends Controller
 			}
 		}
 
-		if ($request->has('password') && empty($request->input('password') == false)) {
-			$u = User::first();
-			$u->password = Hash::make($request->input('password'));
-			$u->save();
-		}
-
 		return redirect('admin/config');
 	}
 }

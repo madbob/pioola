@@ -15,12 +15,15 @@
 			@include($page, ['order' => $order])
 		</div>
 
+
 		<script type="text/javascript">
 			if (typeof jsPrintSetup == "undefined" && $(window).width() > 900) {
 				window.print();
 			}
 			else if (typeof jsPrintSetup != "undefined") {
 				jsPrintSetup.clearSilentPrint();
+				jsPrintSetup.setPaperSizeData(11);
+				jsPrintSetup.setOption('scaling', 60);
 				jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
 				jsPrintSetup.setOption('outputFormat', jsPrintSetup.kOutputFormatPDF);
 				jsPrintSetup.setOption('toFileName', '/tmp/mario-{{ $page }}.pdf');

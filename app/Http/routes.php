@@ -11,7 +11,6 @@ Route::resource('category', 'CategoryController');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'admin' => 'AdminController',
-	'backstage' => 'BackstageController',
 	'config' => 'ConfigController',
 	'users' => 'UsersController'
 ]);

@@ -24,10 +24,6 @@
 			<p>
 				Esiste un'area speciale chiamata <b>Comune</b>, le cui Portate sono riportate nei menù di tutte le Aree. Utile ad esempio per aggregare elementi comuni, tipo le bottigliette d'acqua. Ovviamente anche le Portate nell'Area Comune possono avere una quantità a magazzino, che viene ugualmente scalata dagli ordini effettuati su tutte le Aree.
 			</p>
-			<p>&nbsp;</p>
-			<p>
-				Infine c'è il <b>Retrobottega</b>, per tenere traccia delle risorse condivise ma non direttamente correlate a delle Portate. Qui possono starci lattine di pomodoro (usate sia per le pizze della pizzeria o per i sughi dei primi nel ristorante), fusti di birra (spillata al bar o alla pizzeria) o altri beni generici. Le quantità registrate in questo pannello non sono influenzate dagli ordini effettuati nelle varie Aree, lo strumento è inteso per gestire la logistica generale dell'evento.
-			</p>
 		</div>
 	</div>
 </div>

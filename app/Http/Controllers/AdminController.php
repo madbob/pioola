@@ -16,7 +16,6 @@ use App\Area;
 use App\Category;
 use App\Dish;
 use App\Order;
-use App\Backstage;
 use App\Person;
 use App\Config;
 
@@ -38,13 +37,6 @@ class AdminController extends Controller
 	{
 		$data['areas'] = Area::get();
 		return view('admin.listarea', $data);
-	}
-
-	public function getBackstage()
-	{
-		$data['rows'] = Backstage::get();
-		$data['people'] = Person::orderBy('name', 'asc')->get();
-		return view('admin.editbackstage', $data);
 	}
 
 	public function getReports(Request $request)

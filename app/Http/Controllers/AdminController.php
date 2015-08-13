@@ -41,14 +41,27 @@ class AdminController extends Controller
 
 	public function getReports(Request $request)
 	{
+		$d = null;
+
 		if ($request->has('date'))
 			$d = $request->input('date');
+		else if ($request->has('area'))
+			$a = $request->input('area');
 		else
 			$d = date('Y-m-d');
 
 		$data['areas'] = Area::get();
-		$data['orders'] = Order::where(DB::raw('DATE(created_at)'), '=', $d)->orderBy('created_at', 'asc')->get();
 		$data['dates'] = DB::table('orders')->select(DB::raw('DATE(created_at) as d'))->distinct()->orderBy('created_at', 'asc')->get();
+
+		if ($d != null) {
+			$data['orders'] = Order::where(DB::raw('DATE(created_at)'), '=', $d)->orderBy('created_at', 'asc')->get();
+			$data['type'] = 'bydate';
+		}
+		else {
+			$data['orders'] = Order::where('area_id', '=', $a)->orderBy('created_at', 'asc')->get();
+			$data['type'] = 'byarea';
+			$data['target_area'] = Area::findOrFail($a);
+		}
 
 		return view('admin.reports', $data);
 	}

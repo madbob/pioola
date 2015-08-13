@@ -5,10 +5,6 @@
 <input type="hidden" name="area-id" value="{{ $areas->first()->id }}">
 
 <div class="container" id="add-order">
-	<div class="row printable">
-		<h1>{{ $config['head_documents'] }}</h1>
-	</div>
-
 	<div class="row hidden-xs">
 		<h3>Cassa Area {{ $areas->first()->name }}</h3>
 	</div>

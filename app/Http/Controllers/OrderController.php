@@ -14,6 +14,7 @@ use App\Area;
 use App\Dish;
 use App\Order;
 use App\OrderRow;
+use App\Ticket;
 use App\Config;
 
 class OrderController extends Controller
@@ -38,8 +39,10 @@ class OrderController extends Controller
 		$order->number = $index;
 		$order->user_id = Auth::user()->id;
 		$order->notes = $data->notes;
-		$order->donated = $data->donated;
+		$order->donated = $data->discount_reason;
 		$order->save();
+
+		$order_total = 0;
 
 		foreach($data->dishes as $dish) {
 			$row = new OrderRow();
@@ -59,7 +62,25 @@ class OrderController extends Controller
 				$d->quantity = max($d->quantity - $dish->quantity, 0);
 				$d->save();
 			}
+
+			$order_total += $row->price;
 		}
+
+		$discount = $data->discount;
+		if ($discount == 'free') {
+			$order_total = 0;
+		}
+		else if (strpos($discount, 'ticket_') == 0) {
+			$ticket_id = substr($discount, strlen('ticket_'));
+			$ticket = Ticket::find($ticket_id);
+			if ($ticket != null) {
+				$order_total -= $ticket->value;
+				$order->ticket_id = $ticket->id;
+			}
+		}
+
+		$order->total = $order_total;
+		$order->save();
 
 		echo url('order/' . $order->id . '?step=1');
 	}

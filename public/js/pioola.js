@@ -20,6 +20,18 @@ function refreshTotal() {
 		tot += parseFloat($(this).find('.dish-price').text());
 	});
 
+	var discount = $('#active-discount').val();
+	if (discount != 'none') {
+		var d = discounts[discount];
+		if (d.subtract != -1)
+			tot = tot - d.subtract;
+		else if (d.fixed != -1)
+			tot = d.fixed;
+
+		if (tot < 0)
+			tot = 0;
+	}
+
 	$('#total .badge').text(tot.toFixed(2));
 }
 
@@ -159,28 +171,27 @@ $(document).ready(function() {
 			}
 		});
 
-		$('.donation input[name=donated-check]').change(function() {
-			$('.donation textarea').toggle($(this).is(':checked'));
+		$('.donation input[type=radio]').change(function() {
+			var type = $(this).val();
+			var discount = discounts[type];
+
+			if (type != 'none')
+				$('textarea[name=donated]').val(discount.descr).show();
+			else
+				$('textarea[name=donated]').val('').hide();
+
+			$('#active-discount').val(type);
+			refreshTotal();
 		});
 
 		$('#print-order').click(function() {
 			var free = false;
-			var donation_reason = '';
-
-			if ($('.donation input[name=donated-check]').is(':checked')) {
-				donation_reason = $('.donation textarea').val();
-				if (donation_reason == '') {
-					$('.donation .form-group').addClass('has-error');
-					return false;
-				}
-
-				free = true;
-			}
 
 			var order = {
 				area: $('input[name=area-id]').val(),
 				notes: $('textarea[name=order-notes]').val(),
-				donated: donation_reason,
+				discount: $('#active-discount').val(),
+				discount_reason: $('textarea[name=donated]').val(),
 				dishes: []
 			};
 
@@ -257,6 +268,42 @@ $(document).ready(function() {
 
 		$('#save-area').click(function() {
 			saveArea('save');
+		});
+	}
+
+	/******************************************************************************************************************************************
+		AMMINISTRAZIONE SCONTI
+	*/
+	if ($('#admin-discounts').length != 0) {
+		$('.add-discountrow').click(function() {
+			var row = $('#injectable #new-discount-row').clone();
+			row.removeAttr('id');
+			$('#all-discounts tbody').append(row);
+			return false;
+		});
+
+		$('#admin-discounts').on('click', '.remove-discountsrow', function() {
+			$(this).closest('tr').remove();
+		});
+
+		$('#save-discounts').click(function() {
+			var discounts = {
+				rows: []
+			};
+
+			$('#all-discounts .discount-row').each(function() {
+				var ticket = {
+					id: $(this).find('input[name=id]').val(),
+					value: $(this).find('input[name=value]').val()
+				};
+
+				discounts.rows.push(ticket);
+			});
+
+			tokenpost('/discounts/save', { data: JSON.stringify(discounts) }, function(data) {
+					location.reload();
+				}
+			);
 		});
 	}
 

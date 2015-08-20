@@ -14,6 +14,7 @@ use App\Area;
 use App\Order;
 use App\Category;
 use App\Dish;
+use App\Ticket;
 use App\Config;
 
 class AreaController extends Controller
@@ -63,6 +64,7 @@ class AreaController extends Controller
 		$areas->prepend($a);
 
 		$data['config'] = Config::build();
+		$data['tickets'] = Ticket::orderBy('value', 'asc')->get();
 		$data['areas'] = $areas;
 		return view('main', $data);
 	}

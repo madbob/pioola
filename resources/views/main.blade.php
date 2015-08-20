@@ -3,6 +3,7 @@
 @section('content')
 
 <input type="hidden" name="area-id" value="{{ $areas->first()->id }}">
+<input type="hidden" name="active-discount" id="active-discount" value="none">
 
 <div class="container" id="add-order">
 	<div class="row hidden-xs">
@@ -34,14 +35,22 @@
 			<div class="printable" id="static-notes"></div>
 
 			<div class="donation">
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" name="donated-check" autocomplete="off"> Menu Omaggio
+				<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default">
+						<input type="radio" name="discounts" value="free" autocomplete="off"> Menu Omaggio
+					</label>
+					@foreach($tickets as $ticket)
+					<label class="btn btn-default">
+						<input type="radio" name="discounts" value="ticket_{{ $ticket->id }}" autocomplete="off"> Buono {{ $ticket->value }} €
+					</label>
+					@endforeach
+					<label class="btn btn-default active">
+						<input type="radio" name="discounts" value="none" autocomplete="off" checked> Nessuno Sconto
 					</label>
 				</div>
 
 				<div class="form-group">
-					<textarea class="form-control hidden-xs" name="donated" placeholder="Commento obbligatorio al menu omaggio"></textarea>
+					<textarea class="form-control hidden-xs" name="donated" placeholder="Commento sconto"></textarea>
 				</div>
 			</div>
 		</div>
@@ -127,15 +136,31 @@
 		@foreach($areas as $area)
 			@foreach($area->categories as $cat)
 				@foreach($cat->availableDishes as $dish)
-					"{{ $dish->id }}": {
-						"id": {{ $dish->id }},
-						"name": "{{ $dish->name }}",
-						"category": {{ $cat->id }},
-						"price": {{ $dish->price }},
-						"quantity": {{ $dish->quantity }}
-					},
+				"{{ $dish->id }}": {
+					"id": {{ $dish->id }},
+					"name": "{{ $dish->name }}",
+					"category": {{ $cat->id }},
+					"price": {{ $dish->price }},
+					"quantity": {{ $dish->quantity }}
+				},
 				@endforeach
 			@endforeach
+		@endforeach
+	};
+
+	var discounts = {
+		"free": {
+			"descr": "Menu Omaggio",
+			"subtract": -1,
+			"fixed": 0
+		},
+
+		@foreach($tickets as $ticket)
+		"ticket_{{ $ticket->id }}": {
+			"descr": "Buono {{ $ticket->value }} €",
+			"subtract": {{ $ticket->value }},
+			"fixed": -1
+		},
 		@endforeach
 	};
 </script>

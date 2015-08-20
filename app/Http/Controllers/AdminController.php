@@ -16,7 +16,7 @@ use App\Area;
 use App\Category;
 use App\Dish;
 use App\Order;
-use App\Person;
+use App\Ticket;
 use App\Config;
 
 class AdminController extends Controller
@@ -39,6 +39,12 @@ class AdminController extends Controller
 		return view('admin.listarea', $data);
 	}
 
+	public function getDiscounts()
+	{
+		$data['tickets'] = Ticket::get();
+		return view('admin.editdiscounts', $data);
+	}
+
 	public function getReports(Request $request)
 	{
 		$d = null;
@@ -51,6 +57,7 @@ class AdminController extends Controller
 			$d = date('Y-m-d');
 
 		$data['areas'] = Area::get();
+		$data['tickets'] = Ticket::orderBy('value', 'asc')->get();
 		$data['dates'] = DB::table('orders')->select(DB::raw('DATE(created_at) as d'))->distinct()->orderBy('created_at', 'asc')->get();
 
 		if ($d != null) {

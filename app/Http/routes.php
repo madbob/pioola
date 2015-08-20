@@ -12,5 +12,6 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'admin' => 'AdminController',
 	'config' => 'ConfigController',
-	'users' => 'UsersController'
+	'users' => 'UsersController',
+	'discounts' => 'DiscountController'
 ]);

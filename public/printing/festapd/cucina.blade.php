@@ -110,9 +110,9 @@
 @endif
 
 <div class="riga">
-	<h2>Totale: {{ sprintf('%.02f €', $total) }}</h2>
+	<h2>Totale: {{ sprintf('%.02f €', $order->total) }}</h2>
 	@if($order->donated != '')
-	<p>Menu Omaggio: {{ $order->donated }}</p>
+	<p>{{ $order->donated }}</p>
 	@endif
 </div>
 

@@ -11,6 +11,7 @@ class OrderDiscounts extends Migration
 		{
 			$table->decimal('total', 5, 2);
 			$table->integer('ticket_id');
+			$table->integer('combo_id');
 		});
 	}
 
@@ -20,6 +21,7 @@ class OrderDiscounts extends Migration
 		{
 			$table->dropColumn(['total']);
 			$table->dropColumn(['ticket_id']);
+			$table->dropColumn(['combo_id']);
 		});
 	}
 }

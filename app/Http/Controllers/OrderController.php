@@ -40,6 +40,12 @@ class OrderController extends Controller
 		$order->user_id = Auth::user()->id;
 		$order->notes = $data->notes;
 		$order->donated = $data->discount_reason;
+
+		/*
+			TODO: Sarebbe cosa buona ricalcolare il totale localmente, tenendo conto degli sconti applicati...
+		*/
+		$order->total = $data->total;
+
 		$order->save();
 
 		$order_total = 0;
@@ -67,20 +73,22 @@ class OrderController extends Controller
 		}
 
 		$discount = $data->discount;
-		if ($discount == 'free') {
-			$order_total = 0;
-		}
-		else if (strpos($discount, 'ticket_') == 0) {
+		if (strpos($discount, 'ticket_') == 0) {
 			$ticket_id = substr($discount, strlen('ticket_'));
 			$ticket = Ticket::find($ticket_id);
 			if ($ticket != null) {
-				$order_total -= $ticket->value;
 				$order->ticket_id = $ticket->id;
+				$order->save();
 			}
 		}
-
-		$order->total = $order_total;
-		$order->save();
+		else if (strpos($discount, 'combo_') == 0) {
+			$combo_id = substr($discount, strlen('combo_'));
+			$combo = Combo::find($combo_id);
+			if ($combo != null) {
+				$order->combo_id = $combo->id;
+				$order->save();
+			}
+		}
 
 		echo url('order/' . $order->id . '?step=1');
 	}

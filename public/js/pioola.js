@@ -274,6 +274,7 @@ $(document).ready(function() {
 				notes: $('textarea[name=order-notes]').val(),
 				discount: $('#active-discount').val(),
 				discount_reason: $('textarea[name=donated]').val(),
+				total: $('#total .badge').text(),
 				dishes: []
 			};
 

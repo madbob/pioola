@@ -11,6 +11,7 @@ use Auth;
 use Hash;
 
 use App\Ticket;
+use App\Combo;
 
 class DiscountController extends Controller
 {
@@ -23,7 +24,7 @@ class DiscountController extends Controller
 
 	public function postSave(Request $request)
 	{
-		$data = $request->input('data');
+		$data = $request->input('tickets');
 		$data = json_decode($data);
 
 		$tickets_ids = [];
@@ -37,10 +38,34 @@ class DiscountController extends Controller
 			$ticket->value = $r->value;
 			$ticket->save();
 
-			$tickets_ids [] = $user->id;
+			$tickets_ids [] = $ticket->id;
 		}
 
 		Ticket::whereNotIn('id', $tickets_ids)->delete();
+
+		$data = $request->input('combos');
+		$data = json_decode($data);
+
+		$combos_ids = [];
+
+		foreach($data->rows as $r) {
+			if ($r->id == 'new')
+				$combo = new Combo();
+			else
+				$combo = Combo::findOrFail($r->id);
+
+			$combo->name = $r->name;
+			$combo->area_id = $r->area_id;
+			$combo->price = $r->price;
+			$combo->save();
+
+			$combo->categories()->sync($r->categories);
+
+			$combos_ids [] = $combo->id;
+		}
+
+		Combo::whereNotIn('id', $combos_ids)->delete();
+
 		return "ok";
 	}
 }

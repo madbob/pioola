@@ -15,6 +15,7 @@ use App\Order;
 use App\Category;
 use App\Dish;
 use App\Ticket;
+use App\Combo;
 use App\Config;
 
 class AreaController extends Controller
@@ -65,6 +66,7 @@ class AreaController extends Controller
 
 		$data['config'] = Config::build();
 		$data['tickets'] = Ticket::orderBy('value', 'asc')->get();
+		$data['combos'] = Combo::orderBy('price', 'asc')->get();
 		$data['areas'] = $areas;
 		return view('main', $data);
 	}

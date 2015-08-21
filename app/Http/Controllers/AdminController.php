@@ -17,6 +17,7 @@ use App\Category;
 use App\Dish;
 use App\Order;
 use App\Ticket;
+use App\Combo;
 use App\Config;
 
 class AdminController extends Controller
@@ -41,7 +42,9 @@ class AdminController extends Controller
 
 	public function getDiscounts()
 	{
+		$data['areas'] = Area::get();
 		$data['tickets'] = Ticket::get();
+		$data['combos'] = Combo::get();
 		return view('admin.editdiscounts', $data);
 	}
 

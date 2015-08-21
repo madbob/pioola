@@ -3,7 +3,7 @@
 @section('content')
 
 <input type="hidden" name="area-id" value="{{ $areas->first()->id }}">
-<input type="hidden" name="active-discount" id="active-discount" value="none">
+<input type="hidden" name="active-discount" id="active-discount" value="none" autocomplete="off">
 
 <div class="container" id="add-order">
 	<div class="row hidden-xs">
@@ -42,6 +42,11 @@
 					@foreach($tickets as $ticket)
 					<label class="btn btn-default">
 						<input type="radio" name="discounts" value="ticket_{{ $ticket->id }}" autocomplete="off"> Buono {{ $ticket->value }} €
+					</label>
+					@endforeach
+					@foreach($combos as $combo)
+					<label class="btn btn-default">
+						<input type="radio" name="discounts" value="combo_{{ $combo->id }}" autocomplete="off"> Menu {{ $combo->name }}
 					</label>
 					@endforeach
 					<label class="btn btn-default active">
@@ -132,6 +137,10 @@
 </div>
 
 <script type="text/javascript">
+	/*
+		Qui inietto nella pagina un pò di dati utili richiamati successivamente dal Javascript
+	*/
+
 	var menu = {
 		@foreach($areas as $area)
 			@foreach($area->categories as $cat)
@@ -149,9 +158,17 @@
 	};
 
 	var discounts = {
+		"none": {
+			"descr": "",
+			"subtract": -1,
+			"cat_condition": [],
+			"fixed": -1
+		},
+
 		"free": {
 			"descr": "Menu Omaggio",
 			"subtract": -1,
+			"cat_condition": [],
 			"fixed": 0
 		},
 
@@ -159,7 +176,17 @@
 		"ticket_{{ $ticket->id }}": {
 			"descr": "Buono {{ $ticket->value }} €",
 			"subtract": {{ $ticket->value }},
+			"cat_condition": [],
 			"fixed": -1
+		},
+		@endforeach
+
+		@foreach($combos as $combo)
+		"combo_{{ $combo->id }}": {
+			"descr": "Menu {{ $combo->name }}",
+			"subtract": -1,
+			"cat_condition": [{{ join(',', $combo->categories_id()) }}],
+			"fixed": {{ $combo->price }}
 		},
 		@endforeach
 	};

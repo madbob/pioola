@@ -1,3 +1,8 @@
+/*
+	Gli array menu[] e discounts[] sono inizializzati all'interno della pagina stessa.
+	Cfr. il template main.blade.php
+*/
+
 function tokenpost(url, data, func) {
 	data._token = $('meta[name=csrf-token]').attr('content');
 	$.post(url, data, func);
@@ -16,13 +21,91 @@ function setDishQuantity(row, quantity) {
 function refreshTotal() {
 	var tot = 0;
 
-	$('#order-list .dish-row').each(function() {
-		tot += parseFloat($(this).find('.dish-price').text());
-	});
-
 	var discount = $('#active-discount').val();
-	if (discount != 'none') {
-		var d = discounts[discount];
+	var d = discounts[discount];
+
+	if (d.cat_condition.length != 0) {
+		/*
+			Se ci sono delle condizioni sulle categorie (vale a dire: quando è
+			abilitata una combo):
+
+			- passo in rassegna tutti i piatti nell'ordine. Quelli la cui categoria
+			non è tra quelle contemplate nella combo vengono sommati direttamente in
+			un totale provvisorio (tmp_tot), gli altri messi da parte nell'array
+			test_cat divisi per categoria
+
+			- il numero di menu attivati sarà pari al minimo di portate ordinate
+			all'interno di ogni categoria contemplata. Ad esempio: se ho una combo
+			primo + secondo, ed ho tre primi e due secondi, ci saranno
+			necessariamente due menu + un primo. Nel frattempo i sotto array in
+			test_cat sono ordinati per prezzo: questo è per fare in modo che, se alla
+			fine ci sono portate fuori dalle combo, vengano comunque fatte pagare
+			quelle che costano meno
+
+			- ripasso l'array test_cat rimuovendo le eccedenze e sommando i prezzi di
+			quel che resta al totale complessivo
+
+			- il totale finale sarà
+			totale complessivo + numero di menu attivati * prezzo del singolo menu
+		*/
+
+		var test_cat = [];
+		var temp_tot = 0;
+
+		for (var i = 0; i < d.cat_condition.length; i++) {
+			var index = d.cat_condition[i];
+			test_cat[index] = [];
+		}
+
+		$('#order-list .dish-row').each(function() {
+			var dish_id = $(this).find('input[name=dish-id-edit]').val();
+			var dish = menu[dish_id];
+
+			if (d.cat_condition.indexOf(dish.category) != -1) {
+				/*
+					Attenzione: in questo computo non tengo in considerazione
+					eventuali prezzi manualmente modificati nel pannello,
+					solo i prezzi del listino originale
+				*/
+				var quantity = parseInt($(this).find('.dish-quantity').text());
+				for (var a = 0; a < quantity; a++)
+					test_cat[dish.category].push(dish.price);
+			}
+			else {
+				temp_tot += parseFloat($(this).find('.dish-price').text());
+			}
+		});
+
+		var menu_quantity = 99;
+
+		for (var i = 0; i < d.cat_condition.length; i++) {
+			var index = d.cat_condition[i];
+			test_cat[index].sort(function(a, b) {
+				return a - b;
+			});
+
+			menu_quantity = Math.min(test_cat[index].length, menu_quantity);
+		}
+
+		for (var i = 0; i < d.cat_condition.length; i++) {
+			var index = d.cat_condition[i];
+			test_cat[index].splice (-1 * menu_quantity, menu_quantity);
+
+			if (test_cat[index].length != 0) {
+				temp_tot += test_cat[index].reduce(
+						function(a, b) {
+							return a + b;
+						});
+			}
+		}
+
+		tot = temp_tot + (menu_quantity * d.fixed);
+	}
+	else {
+		$('#order-list .dish-row').each(function() {
+			tot += parseFloat($(this).find('.dish-price').text());
+		});
+
 		if (d.subtract != -1)
 			tot = tot - d.subtract;
 		else if (d.fixed != -1)
@@ -128,8 +211,7 @@ $(document).ready(function() {
 			var p = (parseFloat(row.find('.dish-price').text()) + d.price).toFixed(2);
 			setDishPrice(row, p);
 
-			var tot = parseFloat($('#total .badge').text());
-			$('#total .badge').text((tot + d.price).toFixed(2));
+			refreshTotal();
 		});
 
 		$('#add-order').on('click', '.save-edit', function() {
@@ -286,8 +368,30 @@ $(document).ready(function() {
 			$(this).closest('tr').remove();
 		});
 
-		$('#save-discounts').click(function() {
-			var discounts = {
+		$('.add-comborow').click(function() {
+			var row = $('#injectable #new-combo-row').clone();
+			row.removeAttr('id');
+			$('#all-combos tbody').append(row);
+			return false;
+		});
+
+		$('#admin-discounts').on('click', '.remove-comborow', function() {
+			$(this).closest('tr').remove();
+		});
+
+		$('#admin-discounts').on('change', 'select[name=area_id]', function() {
+			var area = $(this).val();
+			var panel = $(this).closest('tr').find('.selectable_categories');
+			panel.find('.selectable_area').hide().find('input[type=checkbox]').removeAttr('checked');
+			panel.find('.area_' + area).removeClass('hidden').show();
+		});
+
+ 		$('#save-discounts').click(function() {
+			var tickets = {
+				rows: []
+			};
+
+			var combos = {
 				rows: []
 			};
 
@@ -297,10 +401,26 @@ $(document).ready(function() {
 					value: $(this).find('input[name=value]').val()
 				};
 
-				discounts.rows.push(ticket);
+				tickets.rows.push(ticket);
 			});
 
-			tokenpost('/discounts/save', { data: JSON.stringify(discounts) }, function(data) {
+			$('#all-combos .combo-row').each(function() {
+				var combo = {
+					id: $(this).find('input[name=id]').val(),
+					name: $(this).find('input[name=name]').val(),
+					area_id: $(this).find('select[name=area_id]').val(),
+					categories: [],
+					price: $(this).find('input[name=price]').val()
+				};
+
+				$(this).find('.selectable_area input[type=checkbox]:checked').each(function() {
+					combo.categories.push($(this).val());
+				});
+
+				combos.rows.push(combo);
+			});
+
+			tokenpost('/discounts/save', { tickets: JSON.stringify(tickets), combos: JSON.stringify(combos) }, function(data) {
 					location.reload();
 				}
 			);

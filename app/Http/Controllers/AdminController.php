@@ -61,6 +61,7 @@ class AdminController extends Controller
 
 		$data['areas'] = Area::get();
 		$data['tickets'] = Ticket::orderBy('value', 'asc')->get();
+		$data['combos'] = Combo::orderBy('price', 'asc')->get();
 		$data['dates'] = DB::table('orders')->select(DB::raw('DATE(created_at) as d'))->distinct()->orderBy('created_at', 'asc')->get();
 
 		if ($d != null) {

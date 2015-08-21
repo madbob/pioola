@@ -33,11 +33,15 @@
 
 	$data = [];
 	$areatickets = [];
+	$areacombos = [];
 	$donated = [];
 	$totals = [];
 
 	foreach($tickets as $t)
 		$areatickets[$t->id] = [];
+
+	foreach($combos as $c)
+		$areacombos[$c->id] = [];
 
 	foreach($areas as $area) {
 		$data[$area->id] = [];
@@ -46,12 +50,18 @@
 
 		foreach($tickets as $t)
 			$areatickets[$t->id][$area->id] = 0;
+
+		foreach($combos as $c)
+			if ($area->id == $c->area_id)
+				$areacombos[$c->id][$area->id] = 0;
 	}
 
 	foreach($orders as $order) {
 		if (empty($order->donated) == false) {
 			if($order->ticket_id != 0)
 				$areatickets[$order->ticket_id][$order->area_id] += 1;
+			else if($order->combo_id != 0)
+				$areacombos[$order->combo_id][$order->area_id] += 1;
 			else if($order->total == 0)
 				$donated[$order->area_id] += 1;
 		}
@@ -76,7 +86,7 @@
 		@foreach($areas as $area)
 			@if($area->trasversal == false)
 				<div class="col-md-6">
-					@include('admin.reportarea', ['area' => $area, 'areas' => $areas, 'data' => $data, 'areatickets' => $areatickets, 'donated' => $donated, 'totals' => $totals])
+					@include('admin.reportarea', ['area' => $area, 'areas' => $areas, 'data' => $data, 'areatickets' => $areatickets, 'areacombos' => $areacombos, 'donated' => $donated, 'totals' => $totals])
 				</div>
 			@endif
 		@endforeach
@@ -87,7 +97,7 @@
 	<div class="row">
 		<?php $total = 0 ?>
 		<div class="col-md-12">
-			@include('admin.reportarea', ['area' => $target_area, 'areas' => $areas, 'data' => $data, 'areatickets' => $areatickets, 'donated' => $donated, 'totals' => $totals])
+			@include('admin.reportarea', ['area' => $target_area, 'areas' => $areas, 'data' => $data, 'areatickets' => $areatickets, 'areacombos' => $areacombos, 'donated' => $donated, 'totals' => $totals])
 		</div>
 	</div>
 

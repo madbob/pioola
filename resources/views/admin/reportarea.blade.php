@@ -46,6 +46,14 @@
 		</div>
 		@endforeach
 
+		@foreach($combos as $c)
+			@if ($area->id == $c->area_id)
+				<div class="panel-heading">
+					<h3 class="panel-title">Menu {{ $c->name }}<span class="badge pull-right">{{ $areacombos[$c->id][$area->id] }}</span></h3>
+				</div>
+			@endif
+		@endforeach
+
 		<div class="panel-heading">
 			<h3 class="panel-title">Menu Omaggio <span class="badge pull-right">{{ $donated[$area->id] }}</span></h3>
 		</div>

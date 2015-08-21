@@ -15,6 +15,7 @@ use App\Dish;
 use App\Order;
 use App\OrderRow;
 use App\Ticket;
+use App\Combo;
 use App\Config;
 
 class OrderController extends Controller
@@ -48,8 +49,6 @@ class OrderController extends Controller
 
 		$order->save();
 
-		$order_total = 0;
-
 		foreach($data->dishes as $dish) {
 			$row = new OrderRow();
 			$row->order_id = $order->id;
@@ -68,12 +67,10 @@ class OrderController extends Controller
 				$d->quantity = max($d->quantity - $dish->quantity, 0);
 				$d->save();
 			}
-
-			$order_total += $row->price;
 		}
 
 		$discount = $data->discount;
-		if (strpos($discount, 'ticket_') == 0) {
+		if (strpos($discount, 'ticket_') === 0) {
 			$ticket_id = substr($discount, strlen('ticket_'));
 			$ticket = Ticket::find($ticket_id);
 			if ($ticket != null) {
@@ -81,7 +78,7 @@ class OrderController extends Controller
 				$order->save();
 			}
 		}
-		else if (strpos($discount, 'combo_') == 0) {
+		else if (strpos($discount, 'combo_') === 0) {
 			$combo_id = substr($discount, strlen('combo_'));
 			$combo = Combo::find($combo_id);
 			if ($combo != null) {

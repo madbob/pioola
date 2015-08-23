@@ -27,23 +27,22 @@ hr {
 	display: block;
 }
 
-.col-md-12 {
+.col-md-6, .col-md-12 {
 	width: 100%;
 }
 
-.col-md-9 {
-	float: left;
-	width: 75%;
-}
+/*
+	le colonne 9 e 3 servono per la stampa del menu dell'area
+*/
 
-.col-md-6 {
+.col-md-9 {
+	width: 80%;
 	float: left;
-	width: 45%;
 }
 
 .col-md-3 {
+	width: 20%;
 	float: left;
-	width: 25%;
 }
 
 #order-list {
@@ -87,12 +86,23 @@ hr {
 	border-top: 2px solid #000;
 }
 
-#total .badge {
-	position: absolute;
-	right: 10px;
+.page-header {
+	margin-top: 10px;
+	font-size: 50x;
+	text-align: center;
+	text-decoration: underline;
 }
 
-nav, .collection-header, .qutton, .remove-unit, .noprint, #dishes-roster, #ops-options, #injectable {
+.areareport {
+	margin-bottom: 20px;
+	page-break-after: always;
+}
+
+.badge {
+	float: right;
+}
+
+nav, .nav, .noprint, .collection-header, .qutton, .remove-unit, .noprint, #dishes-roster, #ops-options, #injectable {
 	display: none;
 }
 

@@ -24,7 +24,7 @@
 										</div>
 
 										<div class="col-md-3 text-right">
-											<span class="badge dish-price">{{ $dish->price }}€</span>
+											<p class="badge dish-price">{{ $dish->price }}€</p>
 										</div>
 									</div>
 								</li>
@@ -44,8 +44,8 @@
 	else if (typeof jsPrintSetup != "undefined") {
 		jsPrintSetup.clearSilentPrint();
 		jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
-		jsPrintSetup.setOption('outputFormat', jsPrintSetup.kOutputFormatPDF);
-		jsPrintSetup.setOption('toFileName', '/tmp/mario.pdf');
+		// jsPrintSetup.setOption('outputFormat', jsPrintSetup.kOutputFormatPDF);
+		// jsPrintSetup.setOption('toFileName', '/tmp/mario.pdf');
 		jsPrintSetup.setSilentPrint(true);
 		jsPrintSetup.print();
 	}

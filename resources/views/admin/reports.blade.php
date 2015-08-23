@@ -5,7 +5,7 @@
 <div class="container" id="admin-reports">
 	@include('admin.menu', ['active' => 'reports'])
 
-	<div class="row">
+	<div class="row noprint">
 		<div class="col-md-12">
 			<span>REPORT PER GIORNO: </span>
 			<div class="btn-group" role="group" aria-label="giorni">
@@ -16,7 +16,7 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row noprint">
 		<div class="col-md-12">
 			<span>REPORT PER AREA: </span>
 			<div class="btn-group" role="group" aria-label="giorni">
@@ -78,7 +78,7 @@
 
 	?>
 
-	<hr>
+	<hr class="noprint">
 
 	@if($type == 'bydate')
 
@@ -86,7 +86,7 @@
 		@foreach($areas as $area)
 			@if($area->trasversal == false)
 				<div class="col-md-6">
-					@include('admin.reportarea', ['area' => $area, 'areas' => $areas, 'data' => $data, 'areatickets' => $areatickets, 'areacombos' => $areacombos, 'donated' => $donated, 'totals' => $totals])
+					@include('admin.reportarea', ['method' => 'bydate', 'area' => $area, 'areas' => $areas, 'data' => $data, 'date' => $target_date, 'areatickets' => $areatickets, 'areacombos' => $areacombos, 'donated' => $donated, 'totals' => $totals])
 				</div>
 			@endif
 		@endforeach
@@ -97,7 +97,7 @@
 	<div class="row">
 		<?php $total = 0 ?>
 		<div class="col-md-12">
-			@include('admin.reportarea', ['area' => $target_area, 'areas' => $areas, 'data' => $data, 'areatickets' => $areatickets, 'areacombos' => $areacombos, 'donated' => $donated, 'totals' => $totals])
+			@include('admin.reportarea', ['method' => 'byarea', 'area' => $target_area, 'areas' => $areas, 'data' => $data, 'dates' => $dates, 'areatickets' => $areatickets, 'areacombos' => $areacombos, 'donated' => $donated, 'totals' => $totals])
 		</div>
 	</div>
 

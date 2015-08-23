@@ -1,6 +1,13 @@
-<div class="well">
-	<div class="page-header">
+<div class="well areareport">
+	<div class="page-header noprint">
 		<h3>{{ $area->name }}</h3>
+	</div>
+	<div class="page-header printable">
+		@if($method == 'bydate')
+		<h3>{{ $area->name }} - {{ $target_date }}</h3>
+		@elseif($method == 'byarea')
+		<h3>{{ $area->name }} - {{ $dates[0]->d }} / {{ $dates[count($dates) - 1]->d }}</h3>
+		@endif
 	</div>
 
 	<div class="panel panel-default">

@@ -67,6 +67,7 @@ class AdminController extends Controller
 		if ($d != null) {
 			$data['orders'] = Order::where(DB::raw('DATE(created_at)'), '=', $d)->orderBy('created_at', 'asc')->get();
 			$data['type'] = 'bydate';
+			$data['target_date'] = $d;
 		}
 		else {
 			$data['orders'] = Order::where('area_id', '=', $a)->orderBy('created_at', 'asc')->get();

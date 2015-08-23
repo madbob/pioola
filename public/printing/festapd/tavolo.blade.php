@@ -46,10 +46,11 @@
 
 <div class="riga">
 	<div class="col-4">
-		<img src="{{ url('printing/festapd/logo.jpg') }}">
+		<img src="{{ url('printing/festapd/logo2.png') }}">
 	</div>
 
 	<div class="col-4 destra">
+		Area {{ $order->area->name }}<br />
 		Ordine Numero {{ $order->number }}
 	</div>
 

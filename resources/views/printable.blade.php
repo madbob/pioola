@@ -25,8 +25,8 @@
 				jsPrintSetup.setPaperSizeData(11);
 				jsPrintSetup.setOption('scaling', 60);
 				jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
-				jsPrintSetup.setOption('outputFormat', jsPrintSetup.kOutputFormatPDF);
-				jsPrintSetup.setOption('toFileName', '/tmp/mario-{{ $page }}.pdf');
+				// jsPrintSetup.setOption('outputFormat', jsPrintSetup.kOutputFormatPDF);
+				// jsPrintSetup.setOption('toFileName', '/tmp/mario-{{ $page }}.pdf');
 				jsPrintSetup.setSilentPrint(true);
 				jsPrintSetup.print();
 			}

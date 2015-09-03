@@ -25,9 +25,9 @@
 		@endforeach
 	</div>
 
-	@role('admin')
 	<hr/>
 
+	@role('admin')
 	<div class="row">
 		<div class="col-md-6">
 			<div class="jumbotron">
@@ -38,6 +38,18 @@
 		</div>
 	</div>
 	@endrole
+
+	@if($user->area_id != -1)
+	<div class="row">
+		<div class="col-md-6">
+			<div class="jumbotron">
+				<h2>Amministrazione {{ $myarea->name }}</h2>
+				<p>Configurazioni area {{ $myarea->name }}. Accesso riservato alle persone abilitate.</p>
+				<p><a class="btn btn-primary btn-lg" href="{{ url('area/' . $myarea->id . '/edit') }}" role="button">Accedi</a></p>
+			</div>
+		</div>
+	</div>
+	@endif
 </div>
 
 @endsection

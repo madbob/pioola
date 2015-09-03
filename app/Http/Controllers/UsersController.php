@@ -36,6 +36,7 @@ class UsersController extends Controller
 				$user = User::findOrFail($r->id);
 
 			$user->name = $r->name;
+			$user->area_id = $r->area_id;
 
 			if (empty($r->password) == false)
 				$user->password = Hash::make($r->password);

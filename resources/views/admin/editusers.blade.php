@@ -12,6 +12,7 @@
 					<th>Nome</th>
 					<th>Password</th>
 					<th>Amministratore</th>
+					<th>Area</th>
 					<th>Elimina</th>
 				</tr>
 			</thead>

@@ -16,6 +16,17 @@
 		<input class="form-control" type="checkbox" name="admin"<?php if($user != null && $user->is('admin')) echo ' checked="checked"' ?>>
 	</td>
 
+	<td>
+		<select class="form-control" name="area_id">
+			<option value="-1"<?php if($user != null && $user->area_id == -1) echo ' selected="selected"' ?>>Nessuna</option>
+			@foreach($areas as $area)
+				@if($area->trasversal == false)
+				<option value="{{ $area->id }}"<?php if($user != null && $user->area_id == $area->id) echo ' selected="selected"' ?>>{{ $area->name }}</option>
+				@endif
+			@endforeach
+		</select>
+	</td>
+
 	<td class="text-right">
 		<a class="btn btn-danger remove-userrow"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </a>
 	</td>

@@ -27,6 +27,12 @@ class AreaController extends Controller
 
 	public function index()
 	{
+		$user = Auth::user();
+
+		if ($user->area_id != -1)
+			$data['myarea'] = Area::find($user->area_id);
+
+		$data['user'] = $user;
 		$data['areas'] = Area::orderBy('name', 'asc')->get();
 		$data['config'] = Config::build();
 		return view('welcome', $data);
@@ -62,18 +68,28 @@ class AreaController extends Controller
 			}
 		}
 
+		/*
+			Questo metodo e' abbastanza improvvisato, sicuramente si puo' fare una SELECT diretta di SUM(total)
+		*/
+		$cash_sum = 0;
+		$todays_orders = Order::where('area_id', '=', $a->id)->where(DB::raw('DATE(created_at)'), '=', date('Y-m-d'))->get();
+		foreach($todays_orders as $to)
+			$cash_sum += $to->total;
+
 		$areas->prepend($a);
 
 		$data['config'] = Config::build();
 		$data['tickets'] = Ticket::orderBy('value', 'asc')->get();
 		$data['combos'] = Combo::orderBy('price', 'asc')->get();
 		$data['areas'] = $areas;
+		$data['cash_sum'] = $cash_sum;
 		return view('main', $data);
 	}
 
 	public function edit($id)
 	{
-		if (Auth::user()->is('admin') == false)
+		$current_user = Auth::user();
+		if ($current_user->is('admin') == false && $current_user->area_id != $id)
 			abort(503);
 
 		$data['area'] = Area::findOrFail($id);
@@ -82,7 +98,8 @@ class AreaController extends Controller
 
 	public function update(Request $request, $id)
 	{
-		if (Auth::user()->is('admin') == false)
+		$current_user = Auth::user();
+		if ($current_user->is('admin') == false && $current_user->area_id != $id)
 			abort(503);
 
 		$data = $request->input('data');

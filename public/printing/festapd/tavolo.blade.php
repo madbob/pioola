@@ -1,6 +1,16 @@
 <style>
+	body{
+		font-size: 120%;	
+		font-family: arial, sans-serif;
+	}
 	img {
 		max-width: 100%;
+	}
+	
+	h3.copiaper{
+		margin: 0;
+		padding: 0;
+		margin-bottom: 5px;		
 	}
 
 	table {
@@ -11,9 +21,48 @@
 	.riga {
 		width: 100%;
 		clear: both;
-		margin-bottom: 10px;
+		margin-bottom: 0.5em;
+		padding-bottom: 0.5em;
+		border-bottom: 1px solid #999;
 		display: table;
+		
 	}
+	
+	.riga.totale{
+		margin: 0:
+		padding: 0;
+	}
+	
+	.riga.totale h2,
+	.riga.totale p{
+		margin: 0;
+		padding: 0;
+		margin-top: 0.2em;
+		margin-bottom: 0.2em;
+	}
+	
+	.riga tr.testata{
+		border-bottom: 1px solid #000;
+	}
+	
+	.riga th,
+	.riga td {
+		padding-left: 1.5%;
+		padding-right: 1.5%;
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+	
+	.riga td.quantita,
+	.riga th.quantita{
+		text-align: right;
+		font-weight: bold;
+	}
+	
+	.riga td.note{
+		font-size: 100%;		
+	}
+	
 
 	.col-4 {
 		float: left;
@@ -33,7 +82,6 @@
 
 	.powered {
 		font-size: 10px;
-		margin-top: 20px;
 		padding: 3px;
 		text-align: center;
 	}
@@ -72,7 +120,7 @@
 	</div>
 
 	<div class="col-4 destra">
-		<h3>COPIA PER IL TAVOLO</h3>
+		<h3 class="copiaper" >PER IL TAVOLO</h3>
 	</div>
 </div>
 
@@ -81,11 +129,11 @@
 <div class="riga">
 	<table>
 		<thead>
-			<tr>
-				<th width="30%">Descrizione</th>
-				<th width="15%">Quantità</th>
-				<th width="15%">Prezzo</th>
-				<th width="40%">Note</th>
+			<tr class="testata">
+				<th width="32%" class="descrizione">Descrizione</th>
+				<th width="8%" class="quantita">Q.ta</th>
+				<th width="15%" class="prezzo">Prezzo</th>
+				<th width="33%" class="note">Note</th>
 			</tr>
 		</thead>
 
@@ -93,10 +141,10 @@
 			<?php $total = 0 ?>
 			@foreach($order->details as $row)
 			<tr>
-				<td>{{ $row->dish->name }}</td>
-				<td>{{ $row->quantity }}</td>
-				<td>{{ $row->price }} €</td>
-				<td>{{ $row->notes }}</td>
+				<td class="descrizione">{{ $row->dish->name }}</td>
+				<td class="quantita">{{ $row->quantity }}</td>
+				<td class="prezzo">{{ $row->price }} €</td>
+				<td class="note">{{ $row->notes }}</td>
 				<?php $total = $total + $row->price ?>
 			</tr>
 			@endforeach
@@ -110,7 +158,7 @@
 </div>
 @endif
 
-<div class="riga">
+<div class="riga totale">
 	<h2>Totale: {{ sprintf('%.02f €', $order->total) }}</h2>
 	@if($order->donated != '')
 	<p>{{ $order->donated }}</p>

@@ -81,6 +81,7 @@ class AdminController extends Controller
 	public function getUsers()
 	{
 		$data['users'] = User::get();
+		$data['areas'] = Area::get();
 		return view('admin.editusers', $data);
 	}
 

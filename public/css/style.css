@@ -53,6 +53,11 @@ td, th {
 	text-shadow: 0;
 }
 
+.remove-unit {
+	cursor: pointer;
+	cursor: hand;
+}
+
 .edit-dialog {
 	width: 300px;
 	border: 1px solid rgba(0, 0, 0, 0.2);

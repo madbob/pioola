@@ -85,6 +85,14 @@
 				<p class="alert alert-info" id="noprint">È fortemente consigliato usare Firefox e l'estensione JS Print Setup per una agevole stampa degli ordini. <a href="https://addons.mozilla.org/it/firefox/addon/js-print-setup/">Per installare l'estensione clicca qui.</a></p>
 			</div>
 		</div>
+
+		<hr />
+
+		<div class="row">
+			<div class="col-md-12">
+				<span class="pull-right">Totale in Cassa: {{ $cash_sum }}€</span>
+			</div>
+		</div>
 	</div>
 </div>
 

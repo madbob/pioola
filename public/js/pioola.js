@@ -220,9 +220,14 @@ $(document).ready(function() {
 			var p = parseFloat(row.find('input[name=dish-price-edit]').val());
 			var n = row.find('input[name=dish-notes-edit]').val();
 
-			row.find('.dish-quantity').text(q);
-			row.find('.dish-price').text(p.toFixed(2));
-			row.find('.dish-notes').text(n);
+			if (q == 0) {
+				row.remove();
+			}
+			else {
+				row.find('.dish-quantity').text(q);
+				row.find('.dish-price').text(p.toFixed(2));
+				row.find('.dish-notes').text(n);
+			}
 
 			refreshTotal();
 		});
@@ -457,6 +462,7 @@ $(document).ready(function() {
 					id: $(this).find('input[name=id]').val(),
 					name: $(this).find('input[name=name]').val(),
 					password: $(this).find('input[name=password]').val(),
+					area_id: $(this).find('select[name=area_id]').val(),
 					admin: $(this).find('input[name=admin]').is(':checked')
 				};
 

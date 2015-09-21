@@ -59,7 +59,7 @@
 	foreach($orders as $order) {
 		if (empty($order->donated) == false) {
 			if($order->ticket_id != 0)
-				$areatickets[$order->ticket_id][$order->area_id] += 1;
+				$areatickets[$order->ticket_id][$order->area_id] += $order->ticket_quantity;
 			else if($order->combo_id != 0)
 				$areacombos[$order->combo_id][$order->area_id] += 1;
 			else if($order->total == 0)
@@ -102,6 +102,14 @@
 	</div>
 
 	@endif
+
+	<hr />
+
+	<div class="row">
+		<div class="col-md-12">
+			<a class="pull-right" href="{{ url('reports/download') }}">Scarica Report Completo</a>
+		</div>
+	</div>
 </div>
 
 @endsection

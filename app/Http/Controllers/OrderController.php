@@ -75,6 +75,7 @@ class OrderController extends Controller
 			$ticket = Ticket::find($ticket_id);
 			if ($ticket != null) {
 				$order->ticket_id = $ticket->id;
+				$order->ticket_quantity = $data->discount_quantity;
 				$order->save();
 			}
 		}

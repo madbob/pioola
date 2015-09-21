@@ -102,12 +102,14 @@ function refreshTotal() {
 		tot = temp_tot + (menu_quantity * d.fixed);
 	}
 	else {
+		var discount_quantity = $('#active-discount-quantity').val();
+
 		$('#order-list .dish-row').each(function() {
 			tot += parseFloat($(this).find('.dish-price').text());
 		});
 
 		if (d.subtract != -1)
-			tot = tot - d.subtract;
+			tot = tot - (d.subtract * discount_quantity);
 		else if (d.fixed != -1)
 			tot = d.fixed;
 
@@ -262,12 +264,29 @@ $(document).ready(function() {
 			var type = $(this).val();
 			var discount = discounts[type];
 
+			var ticket_quantity = $(this).parent().find('.ticket-quantity');
+			if (ticket_quantity.length != 0)
+				ticket_quantity.text('1');
+
 			if (type != 'none')
 				$('textarea[name=donated]').val(discount.descr).show();
 			else
 				$('textarea[name=donated]').val('').hide();
 
 			$('#active-discount').val(type);
+			$('#active-discount-quantity').val('1');
+			refreshTotal();
+		});
+
+		$('.ticket-button').click(function() {
+			var quantity = parseInt($(this).find('.ticket-quantity').text());
+			var new_quant = 1;
+
+			if (quantity < 10)
+				new_quant = quantity + 1;
+
+			$(this).find('.ticket-quantity').text(new_quant);
+			$('#active-discount-quantity').val(new_quant);
 			refreshTotal();
 		});
 
@@ -278,6 +297,7 @@ $(document).ready(function() {
 				area: $('input[name=area-id]').val(),
 				notes: $('textarea[name=order-notes]').val(),
 				discount: $('#active-discount').val(),
+				discount_quantity: $('#active-discount-quantity').val(),
 				discount_reason: $('textarea[name=donated]').val(),
 				total: $('#total .badge').text(),
 				dishes: []

@@ -13,5 +13,6 @@ Route::controllers([
 	'admin' => 'AdminController',
 	'config' => 'ConfigController',
 	'users' => 'UsersController',
+	'reports' => 'ReportsController',
 	'discounts' => 'DiscountController'
 ]);

@@ -4,6 +4,7 @@
 
 <input type="hidden" name="area-id" value="{{ $areas->first()->id }}">
 <input type="hidden" name="active-discount" id="active-discount" value="none" autocomplete="off">
+<input type="hidden" name="active-discount-quantity" id="active-discount-quantity" value="1" autocomplete="off">
 
 <div class="container" id="add-order">
 	<div class="row hidden-xs">
@@ -40,8 +41,8 @@
 						<input type="radio" name="discounts" value="free" autocomplete="off"> Menu Omaggio
 					</label>
 					@foreach($tickets as $ticket)
-					<label class="btn btn-default">
-						<input type="radio" name="discounts" value="ticket_{{ $ticket->id }}" autocomplete="off"> Buono {{ $ticket->value }} €
+					<label class="btn btn-default ticket-button">
+						<input type="radio" name="discounts" value="ticket_{{ $ticket->id }}" autocomplete="off"> Buono {{ $ticket->value }} € (<span class="ticket-quantity">0</span>)
 					</label>
 					@endforeach
 					@foreach($combos as $combo)

@@ -26,7 +26,7 @@ In questo modo è fruibile da ogni dispositivo nella rete, ivi compresi i termin
 ## Installazione
 
 ```
-git clone https://github.com/OfficineDigitali/pioola
+git clone https://github.com/madbob/pioola.git
 cd pioola
 composer install
 php artisan key:generate
@@ -35,6 +35,8 @@ cp .env.example .env
 php artisan migrate
 php artisan db:seed
 ```
+
+Verrà creato un utente di default, username: `Amministratore` password: `cippalippa`
 
 ## Storia
 
@@ -47,3 +49,4 @@ Il nome _pioola_ deriva dal termine _piola_, la tipica osteria piemontese.
 **Pioola** è distribuito in licenza AGPL versione 3 o successive.
 
 Copyright (C) 2015 Officine Digitali <info@officinedigitali.org>.
+Copyright (C) 2017 Roberto Guido <bob@linux.it>.

@@ -12,7 +12,7 @@ In questo modo è fruibile da ogni dispositivo nella rete, ivi compresi i termin
 * aree multiple, ciascuna con un proprio menù (più l'area comune, che aggrega i prodotti ordinabili da tutte le altre)
 * prodotti divisi in categorie
 * ordini completamente editabili singolarmente (quantità, prezzi, note)
-* stampa diretta degli ordini
+* stampa diretta degli ordini, in due copie (per la cucina e per il tavolo)
 * gestione delle quantità a magazzino dei prodotti
 * reportistica degli ordini effettuati
 
@@ -38,6 +38,12 @@ php artisan db:seed
 
 Verrà creato un utente di default, username: `Amministratore` password: `cippalippa`
 
+## Personalizzazione
+
+È possibile, anzi necessario, costruire il proprio template per la stampa degli ordini.
+
+I templates sono formattati in HTML e stanno nella cartella `public/printing`, si prenda come esempio il contenuto di `public/printing/festapd`.
+
 ## Storia
 
 **Pioola** è stato inizialmente sviluppato per la Festa dell'Unità di Torino.
@@ -49,4 +55,5 @@ Il nome _pioola_ deriva dal termine _piola_, la tipica osteria piemontese.
 **Pioola** è distribuito in licenza AGPL versione 3 o successive.
 
 Copyright (C) 2015 Officine Digitali <info@officinedigitali.org>.
+
 Copyright (C) 2017 Roberto Guido <bob@linux.it>.
